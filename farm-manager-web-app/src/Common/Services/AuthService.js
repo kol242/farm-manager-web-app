@@ -4,15 +4,21 @@ import { makeAutoObservable, runInAction } from 'mobx'
 import { db } from '../firebase-config'
 import { addDoc, collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore'
 import ToastStore from '../../Stores/ToastStore'
+import axios from 'axios'
+import CropsStore from '../../Stores/CropsStore'
 
 class AuthService {
     userData = {}
     currentUser
     loggedIn = false
     signupChecker = false
+    currencies = []
+    countries = []
 
     constructor() {
         makeAutoObservable(this)
+        this.getCurrencies()
+        this.getCountries()
     }
 
     signup = async (userData) => {
@@ -22,7 +28,8 @@ class AuthService {
                 username: userData.username,
                 farmName: userData.farm,
                 country: userData.country,
-                email: userData.email
+                email: userData.email,
+                currency: userData.currency
             })
             createUserWithEmailAndPassword(auth, userData.email, userData.password)
             runInAction(() => {
@@ -38,6 +45,36 @@ class AuthService {
                 title: "Signup failed!",
                 message: "Something went wrong..."
             })
+        }
+    }
+
+    getCountries = async () => {
+        try {
+            await axios.get(`https://restcountries.com/v2/all`)
+            .then(res => {
+                const data = res.data
+                this.countries = data.map(country => {
+                    return {
+                        name: country.name
+                    }
+                })
+            }) 
+        } catch(err) {
+            console.error(err)  
+        }
+    }
+
+    getCurrencies = async () => {
+        try {
+            await axios.get(`https://openexchangerates.org/api/currencies.json`)
+            .then(res => {
+                const data = res.data
+                for (const [key] of Object.entries(data)) {
+                    this.currencies.push(key)
+                }
+            }) 
+        } catch(err) {
+            console.error(err)  
         }
     }
 
@@ -70,6 +107,7 @@ class AuthService {
                     username: doc.data().username,
                     country: doc.data().country,
                     farmName: doc.data().farmName,
+                    currency: doc.data().currency,
                     id: doc.id,
                 }
             })    
@@ -85,8 +123,7 @@ class AuthService {
     logout = async () => {
         await signOut(auth)
         runInAction(() => {
-            // WorkPlaceStore.items = []
-            // WorkerStore.items = []
+            CropsStore.crops = []
             this.loggedIn = false
             this.signupChecker = false
             ToastStore.notificationType({
