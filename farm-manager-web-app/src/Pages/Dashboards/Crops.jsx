@@ -1,84 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { observer } from 'mobx-react'
 import CropsStore from '../../Stores/CropsStore'
-import CreateService from '../../Common/Services/CreateService'
 import { Link } from 'react-router-dom'
-import AuthService from '../../Common/Services/AuthService'
 import Modal from '../../Components/Modal/Modal'
+import CropsList from '../../Components/Crops/CropsList'
+import Pagination from '../../Components/Pagination'
+import CropForm from '../../Components/Crops/CropForm'
+import Filter from '../../Components/Filter'
+import CropSorter from '../../Components/Crops/CropSorter'
 
 const Crops = observer(() => {
 
-    function handleSubmit(e) {
-        e.preventDefault()
-        const payload = {
-            name: e.target.name.value,
-            type: e.target.type.value,
-            quantity: e.target.quantity.value,
-            cost: e.target.cost.value,
-            descr: e.target.descr.value,
-            state: e.target.state.value,
-            harvested: e.target.harvested.value,
-            profit: e.target.profit.value,
-            unit: e.target.unit.value
-        }
-        CreateService.newCrop(payload)
-        return CropsStore.getCrops()
-    }
+    // prebacit u STORE !!!!!!!!! =================================
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(5);
 
-  return (
-    <>
-        { CropsStore.modal ? <Modal /> : null }
-        <Link to="/home">Homepage</Link>
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name='name' placeholder="Name..."/>
-                <br />
-                <input type="text" name='type' placeholder="Type..."/>
-                <br />
-                <input type="number" name='quantity' placeholder="Quantity..."/>
-                <select name="unit">
-                    <option value="kg">kg</option>
-                    <option value="t">t</option>
-                    <option value="lb">lb</option>
-                </select>
-                <br />
-                <input type="number" name='cost' placeholder="Cost..."/>
-                <br />
-                <input type="text" name='descr' placeholder="Description..."/>
-                <br />
-                <input type="text" name='state' placeholder="State..."/>
-                <br />
-                <label htmlFor="harvested">Harvested</label>
-                <select name="harvested">
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                </select>
-                <br />
-                <input type="number" name='profit' placeholder="Profit..."/>
-                <br />
-                <button type="submit">Add crop</button>
-            </form>
-        </div>
-        { CropsStore.crops.length === 0 ? <p>No crops to show. Please add new crops.</p> : 
-            <div>
-                { CropsStore.crops.map((item) => 
-                    <ul key={item.docId}>
-                        <li>Name: {item.name}</li>
-                        <li>Type: {item.type}</li>
-                        <li>Quantity: {item.quantity} {item.unit}</li>
-                        <li>Cost: {item.cost} {AuthService.userData.currency}</li>
-                        <li>Description: {item.description}</li>
-                        <li>State: {item.state}</li>
-                        <li>Harvested: {item.harvested}</li>
-                        <li>Profit: {item.profit}</li>
-                        <button onClick={() => CropsStore.deleteCrop(item.docId)}>Delete</button>
-                        <button onClick={() => CropsStore.modalHandler(item)}>Update</button>
-                    </ul>
-                )}
-            </div>    
-        }
-    </>
-  )
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = CropsStore.crops.slice(indexOfFirstPost, indexOfLastPost);
+
+    const paginate = pageNumber => setCurrentPage(pageNumber);
+    // ============================================================
+
+    return (
+        <>
+            <button onClick={CropsStore.filterChecker}>Filter</button>
+            { CropsStore.filterCheck ? <Filter /> : null }
+            { CropsStore.modal ? <Modal /> : null }
+            <CropSorter />
+            <Link to="/home">Homepage</Link>
+            <CropForm />
+            { CropsStore.crops.length === 0 ? <p>No crops to show. Please add new crops.</p> : <CropsList items={currentPosts}/> }
+            <Pagination
+                postsPerPage={postsPerPage}
+                totalPosts={CropsStore.crops.length}
+                paginate={paginate}
+            />
+        </>
+    )
 })
 
 export default Crops

@@ -40,11 +40,11 @@ class CreateService {
             await addDoc(collectionRef, {
                 Name: payload.name,
                 Type: payload.type,
-                Quantity: payload.quantity,
-                Cost: payload.cost,
+                Quantity: Number(payload.quantity),
+                Cost: Number(payload.cost),
                 Description: payload.descr,
                 Product: payload.product,
-                Profit: payload.profit,
+                Profit: Number(payload.profit),
                 User: AuthService.currentUser.uid
             })
             ToastStore.notificationType({
@@ -68,8 +68,8 @@ class CreateService {
             await addDoc(collectionRef, {
                 Name: payload.name,
                 Type: payload.type,
-                Quantity: payload.quantity,
-                Cost: payload.cost,
+                Quantity: Number(payload.quantity),
+                Cost: Number(payload.cost),
                 Description: payload.descr,
                 User: AuthService.currentUser.uid
             })
@@ -88,45 +88,18 @@ class CreateService {
         }
     }
 
-    newOrchard = async (payload) => {
-        try {
-            const collectionRef = collection(db, "Orchard")
-            await addDoc(collectionRef, {
-                Name: payload.name,
-                Type: payload.type,
-                Quantity: payload.quantity,
-                Cost: payload.cost,
-                Description: payload.descr,
-                Profit: payload.profit,
-                User: AuthService.currentUser.uid
-            })
-            ToastStore.notificationType({
-                type: "SUCCESS",
-                title: "Success!",
-                message: "New orchard is successfully created."
-            }) 
-        } catch (err) {
-            ToastStore.notificationType({
-                type: "ERROR",
-                title: "Error!",
-                message: "Error adding new orchard."
-            })
-            console.error(err)
-        }
-    }
-
     newField = async (payload) => {
         try {
             const collectionRef = collection(db, "Fields")
             await addDoc(collectionRef, {
                 Name: payload.name,
                 Type: payload.type,
-                Quantity: payload.quantity,
-                Cost: payload.cost,
+                Quantity: Number(payload.quantity),
+                Cost: Number(payload.cost),
                 Description: payload.descr,
-                Size: payload.size,
+                Size: Number(payload.size),
                 Crop: payload.crop,
-                Treatment: payload.treatmen,
+                Treatment: payload.treatment,
                 User: AuthService.currentUser.uid
             })
             ToastStore.notificationType({
@@ -139,33 +112,6 @@ class CreateService {
                 type: "ERROR",
                 title: "Error!",
                 message: "Error adding new field."
-            })
-            console.error(err)
-        }
-    }
-
-    newGarden = async (payload) => {
-        try {
-            const collectionRef = collection(db, "Garden")
-            await addDoc(collectionRef, {
-                Name: payload.name,
-                Type: payload.type,
-                Quantity: payload.quantity,
-                Cost: payload.cost,
-                Description: payload.descr,
-                Profit: payload.profit,
-                User: AuthService.currentUser.uid
-            })
-            ToastStore.notificationType({
-                type: "SUCCESS",
-                title: "Success!",
-                message: "New garden is successfully created."
-            }) 
-        } catch (err) {
-            ToastStore.notificationType({
-                type: "ERROR",
-                title: "Error!",
-                message: "Error adding new garden."
             })
             console.error(err)
         }

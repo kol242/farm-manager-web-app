@@ -6,9 +6,9 @@ import ReadService from '../Common/Services/ReadService'
 import SortService from '../Common/Services/SortService'
 import UpdateService from '../Common/Services/UpdateService'
 
-class CropsStore {
-    crops = []
-    crop = {}
+class AnimalStore {
+    Animals = []
+    Animal = {}
     modal = false
     filter = ""
     filterCheck = false
@@ -18,7 +18,7 @@ class CropsStore {
     }
 
     modalHandler = (data) => {
-        this.crop = data
+        this.Animal = data
         this.modal ? this.modal = false : this.modal = true
     }
 
@@ -31,10 +31,10 @@ class CropsStore {
         this.filterCheck ? this.filterCheck = false : this.filterCheck = true
     }
 
-    pushCrops = async (documentSnapshot) => {
+    pushAnimals = async (documentSnapshot) => {
         const filtered = await documentSnapshot.docs.filter(doc => doc.data().User === AuthService.currentUser.uid)
         runInAction(() => {
-            this.crops = filtered.map(doc => {
+            this.Animals = filtered.map(doc => {
                 return {
                     docId: doc.id,
                     name: doc.data().Name,
@@ -42,49 +42,47 @@ class CropsStore {
                     quantity: doc.data().Quantity,
                     cost: doc.data().Cost,
                     descr: doc.data().Description,
-                    state: doc.data().State,
-                    harvested: doc.data().Harvested,
-                    profit: doc.data().Profit,
-                    unit: doc.data().Unit
+                    product: doc.data().Product,
+                    profit: doc.data().Profit
                 }
             }) 
         })
     }
 
-    getCrops = async () => {
-        const documentSnapshot = await ReadService.getCrops()
+    getAnimals = async () => {
+        const documentSnapshot = await ReadService.getAnimals()
         runInAction(() => {
-            this.pushCrops(documentSnapshot)
+            this.pushAnimals(documentSnapshot)
         })
     }
 
-    getFilteredCrops = async () => {
-        const documentSnapshot = await FilterService.cropsFilter()
+    getFilteredAnimals = async () => {
+        const documentSnapshot = await FilterService.animalsFilter()
         runInAction(() => {
-            this.pushCrops(documentSnapshot)
+            this.pushAnimals(documentSnapshot)
         })
     }
 
-    getSortedCrops = async () => {
-        const documentSnapshot = await SortService.cropSorter() 
+    getSortedAnimals = async () => {
+        const documentSnapshot = await SortService.animalSorter() 
         runInAction(() => {
-            this.pushCrops(documentSnapshot)
+            this.pushAnimals(documentSnapshot)
         })
     }
 
-    deleteCrop = async (id) => {
-        await DeleteService.deleteCrop(id)
+    deleteAnimal = async (id) => {
+        await DeleteService.deleteAnimal(id)
         runInAction(() => {
-            this.getCrops()    
+            this.getAnimals()    
         })
     }
 
-    updateCrop = async (payload) => {
-        UpdateService.updateCrop(payload, this.crop.docId)
+    updateAnimal = async (payload) => {
+        UpdateService.updateAnimal(payload, this.Animal.docId)
         this.modal = false
-        this.getCrops()
+        this.getAnimals()
     }
 
 }
 
-export default new CropsStore()
+export default new AnimalStore()

@@ -1,17 +1,12 @@
 import {db} from '../firebase-config'
-import { collection, query, where, orderBy, getDocs } from 'firebase/firestore'
-import AuthService from './AuthService'
+import { collection, query, getDocs } from 'firebase/firestore'
 import ToastStore from '../../Stores/ToastStore'
 
 class ReadService {
     getCrops = async () => {
         try {
-            const user = await AuthService.currentUser.uid
-            const ref = query(
-                collection(db, "Crops"),
-                where("User", "==", user)
-            ) 
-        return getDocs(ref)
+            const ref = query(collection(db, "Crops")) 
+            return getDocs(ref)
         } catch (e) {
             ToastStore.notificationType({
                 type: "ERROR",
@@ -24,13 +19,8 @@ class ReadService {
 
     getAnimals = async () => {
         try {
-            const user = await AuthService.currentUser.uid
-            const ref = query(
-                collection(db, "Animals"),
-                where("User", "==", user),
-                orderBy("Name", "asc")
-            ) 
-        return getDocs(ref)
+            const ref = query(collection(db, "Animals")) 
+            return getDocs(ref)
         } catch (e) {
             ToastStore.notificationType({
                 type: "ERROR",
@@ -43,13 +33,8 @@ class ReadService {
 
     getVehicles = async () => {
         try {
-            const user = await AuthService.currentUser.uid
-            const ref = query(
-                collection(db, "Vehicles"),
-                where("User", "==", user),
-                orderBy("Name", "asc")
-            ) 
-        return getDocs(ref)
+            const ref = query(collection(db, "Vehicles")) 
+            return getDocs(ref)
         } catch (e) {
             ToastStore.notificationType({
                 type: "ERROR",
@@ -60,58 +45,15 @@ class ReadService {
         }
     }
 
-    getOrchard = async () => {
-        try {
-            const user = await AuthService.currentUser.uid
-            const ref = query(
-                collection(db, "Orchard"),
-                where("User", "==", user),
-                orderBy("Name", "asc")
-            ) 
-        return getDocs(ref)
-        } catch (e) {
-            ToastStore.notificationType({
-                type: "ERROR",
-                title: "Error!",
-                message: "Error loading orchard."
-            })
-            console.error(e)
-        }
-    }
-
     getFields = async () => {
         try {
-            const user = await AuthService.currentUser.uid
-            const ref = query(
-                collection(db, "Fields"),
-                where("User", "==", user),
-                orderBy("Name", "asc")
-            ) 
-        return getDocs(ref)
+            const ref = query(collection(db, "Fields")) 
+            return getDocs(ref)
         } catch (e) {
             ToastStore.notificationType({
                 type: "ERROR",
                 title: "Error!",
                 message: "Error loading fields."
-            })
-            console.error(e)
-        }
-    }
-
-    getGarden = async () => {
-        try {
-            const user = await AuthService.currentUser.uid
-            const ref = query(
-                collection(db, "Garden"),
-                where("User", "==", user),
-                orderBy("Name", "asc")
-            ) 
-        return getDocs(ref)
-        } catch (e) {
-            ToastStore.notificationType({
-                type: "ERROR",
-                title: "Error!",
-                message: "Error loading garden."
             })
             console.error(e)
         }

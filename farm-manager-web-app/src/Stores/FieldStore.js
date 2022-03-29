@@ -6,9 +6,9 @@ import ReadService from '../Common/Services/ReadService'
 import SortService from '../Common/Services/SortService'
 import UpdateService from '../Common/Services/UpdateService'
 
-class CropsStore {
-    crops = []
-    crop = {}
+class FieldStore {
+    Fields = []
+    Field = {}
     modal = false
     filter = ""
     filterCheck = false
@@ -18,7 +18,7 @@ class CropsStore {
     }
 
     modalHandler = (data) => {
-        this.crop = data
+        this.Field = data
         this.modal ? this.modal = false : this.modal = true
     }
 
@@ -31,10 +31,10 @@ class CropsStore {
         this.filterCheck ? this.filterCheck = false : this.filterCheck = true
     }
 
-    pushCrops = async (documentSnapshot) => {
+    pushFields = async (documentSnapshot) => {
         const filtered = await documentSnapshot.docs.filter(doc => doc.data().User === AuthService.currentUser.uid)
         runInAction(() => {
-            this.crops = filtered.map(doc => {
+            this.Fields = filtered.map(doc => {
                 return {
                     docId: doc.id,
                     name: doc.data().Name,
@@ -42,49 +42,48 @@ class CropsStore {
                     quantity: doc.data().Quantity,
                     cost: doc.data().Cost,
                     descr: doc.data().Description,
-                    state: doc.data().State,
-                    harvested: doc.data().Harvested,
-                    profit: doc.data().Profit,
-                    unit: doc.data().Unit
+                    size: doc.data().Size,
+                    crop: doc.data().Crop,
+                    treatment: doc.data().Treatment,
                 }
             }) 
         })
     }
 
-    getCrops = async () => {
-        const documentSnapshot = await ReadService.getCrops()
+    getFields = async () => {
+        const documentSnapshot = await ReadService.getFields()
         runInAction(() => {
-            this.pushCrops(documentSnapshot)
+            this.pushFields(documentSnapshot)
         })
     }
 
-    getFilteredCrops = async () => {
-        const documentSnapshot = await FilterService.cropsFilter()
+    getFilteredFields = async () => {
+        const documentSnapshot = await FilterService.fieldsFilter()
         runInAction(() => {
-            this.pushCrops(documentSnapshot)
+            this.pushFields(documentSnapshot)
         })
     }
 
-    getSortedCrops = async () => {
-        const documentSnapshot = await SortService.cropSorter() 
+    getSortedFields = async () => {
+        const documentSnapshot = await SortService.fieldSorter() 
         runInAction(() => {
-            this.pushCrops(documentSnapshot)
+            this.pushFields(documentSnapshot)
         })
     }
 
-    deleteCrop = async (id) => {
-        await DeleteService.deleteCrop(id)
+    deleteField = async (id) => {
+        await DeleteService.deleteField(id)
         runInAction(() => {
-            this.getCrops()    
+            this.getFields()    
         })
     }
 
-    updateCrop = async (payload) => {
-        UpdateService.updateCrop(payload, this.crop.docId)
+    updateField = async (payload) => {
+        UpdateService.updateField(payload, this.Field.docId)
         this.modal = false
-        this.getCrops()
+        this.getFields()
     }
 
 }
 
-export default new CropsStore()
+export default new FieldStore()
