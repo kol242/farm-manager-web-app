@@ -3,7 +3,7 @@ import React from 'react'
 import '../../Common/Style/modal.scss'
 import CropsStore from '../../Stores/CropsStore'
 
-const Modal = observer(() => {
+const CropModal = observer(() => {
     async function handleSubmit(e) {
         e.preventDefault()
         const payload = {
@@ -56,4 +56,4 @@ const Modal = observer(() => {
   )
 })
 
-export default Modal
+export default CropModal

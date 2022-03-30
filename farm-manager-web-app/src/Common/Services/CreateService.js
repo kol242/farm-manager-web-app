@@ -100,7 +100,8 @@ class CreateService {
                 Size: Number(payload.size),
                 Crop: payload.crop,
                 Treatment: payload.treatment,
-                User: AuthService.currentUser.uid
+                User: AuthService.currentUser.uid,
+                Unit: payload.unit
             })
             ToastStore.notificationType({
                 type: "SUCCESS",

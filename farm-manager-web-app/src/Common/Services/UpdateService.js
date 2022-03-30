@@ -82,7 +82,7 @@ class UpdateService {
 
     updateField = async (payload, id) => {
         try {
-            const collectionRef = doc(db, "Crops", id)
+            const collectionRef = doc(db, "Fields", id)
             await updateDoc(collectionRef, { 
                 Name: payload.name,
                 Type: payload.type,
@@ -92,18 +92,20 @@ class UpdateService {
                 Size: Number(payload.size),
                 Crop: payload.crop,
                 Treatment: payload.treatment,
+                Unit: payload.unit,
             })
             ToastStore.notificationType({
                 type: "SUCCESS",
                 title: "Success!",
                 message: "Field is successfully updated."
             })
-        } catch {
+        } catch (err) {
             ToastStore.notificationType({
                 type: "ERROR",
                 title: "Error!",
                 message: "Error updating field."
             })
+            console.error(err)
         }
     }
 }

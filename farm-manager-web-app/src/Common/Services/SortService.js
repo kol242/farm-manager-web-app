@@ -98,6 +98,18 @@ class SortService {
                     operator: 'desc'
                 }
                 break;
+            case 'SizeAsc':
+                this.sortObj = {
+                    field: 'Size',
+                    operator: 'asc'
+                }
+                break;
+            case 'SizeDesc':
+                this.sortObj = {
+                    field: 'Size',
+                    operator: 'desc'
+                }
+                break;
             default:
                 break;
         }

@@ -1,14 +1,15 @@
 import { observer } from 'mobx-react'
 import React from 'react'
-import CropsStore from '../Stores/CropsStore'
-import Cost from './FilterInputs/Cost'
-import Profit from './FilterInputs/Profit'
-import Quantity from './FilterInputs/Quantity'
-import Name from './FilterInputs/Name'
-import Type from './FilterInputs/Type'
-import Harvested from './FilterInputs/Harvested'
-import State from './FilterInputs/State'
-import FilterSelect from './FilterInputs/FilterSelect'
+import CropsStore from '../../Stores/CropsStore'
+import Cost from '../FilterInputs/Cost'
+import Profit from '../FilterInputs/Profit'
+import Quantity from '../FilterInputs/Quantity'
+import Name from '../FilterInputs/Name'
+import Type from '../FilterInputs/Type'
+import Harvested from '../FilterInputs/Harvested'
+import State from '../FilterInputs/State'
+import CropFilter from './CropFilter'
+import Product from '../FilterInputs/Product'
 
 const Filter = observer(() => {
   const filterSubmit = (e) => {
@@ -17,7 +18,7 @@ const Filter = observer(() => {
   }
   return (
     <>
-      <FilterSelect />
+      <CropFilter />
       <form onSubmit={filterSubmit}>
         { CropsStore.filter === "Quantity" ? <Quantity /> : null }
         { CropsStore.filter === "Cost" ? <Cost /> : null }
@@ -26,6 +27,7 @@ const Filter = observer(() => {
         { CropsStore.filter === "Type" ? <Type /> : null }
         { CropsStore.filter === "Harvested" ? <Harvested /> : null }
         { CropsStore.filter === "State" ? <State /> : null }
+        { CropsStore.filter === "Product" ? <Product /> : null }
         <button type="submit">Search</button>
       </form>
     </>

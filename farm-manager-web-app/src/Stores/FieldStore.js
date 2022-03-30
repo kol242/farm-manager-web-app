@@ -45,6 +45,7 @@ class FieldStore {
                     size: doc.data().Size,
                     crop: doc.data().Crop,
                     treatment: doc.data().Treatment,
+                    unit: doc.data().Unit
                 }
             }) 
         })
