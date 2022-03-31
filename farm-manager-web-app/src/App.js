@@ -8,11 +8,15 @@ import Homepage from './Pages/Homepage'
 import LandingPage from './Pages/LandingPage'
 import Login from './Pages/Login'
 import Signup from './Pages/Signup'
+import Navbar from './Components/Navbar'
+import Footer from './Components/Footer'
+import './Common/Style/app.scss'
 
 function App() {
   return (
-    <div>
+    <div className="app-layout">
       <Router>
+        <Navbar className="navbar"/>
         <Routes>
           <Route path="/" element={<LandingPage />}/>
           <Route path="/login" element={<Login className="body" />} />
@@ -33,6 +37,7 @@ function App() {
             <Route exact path= "/fields" element={<Fields className="body"/>}/>  
           </Route>
         </Routes>
+        <Footer className="footer" />
       </Router>
     </div>
   );

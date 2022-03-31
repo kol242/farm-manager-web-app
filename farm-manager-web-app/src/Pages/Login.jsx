@@ -1,6 +1,7 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import AuthService from '../Common/Services/AuthService'
+import '../Common/Style/login.scss'
 
 const Login = () => {
   const history = useNavigate()
@@ -14,16 +15,26 @@ const Login = () => {
     history("/home")
   }
 
-  return (
-    <>
-      <h1>Log In</h1>
-      <br />
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="email" placeholder='Email'/>
-        <input type="password" name="password" placeholder='Password'/>
-        <button type='submit'>Log In</button>
-      </form>
-    </>
+  return AuthService.loggedIn === true ? <Navigate to="/dashboard" /> : (
+    <div className="content-wrapper">
+      <div className="content">
+        <h2>Log In</h2>
+        <form onSubmit={handleSubmit} className="form-content">
+          <div className="form-input">
+            <label htmlFor="email">Email</label>
+            <input type="text" name="email"/>
+          </div>
+          <div className="form-input">
+            <label htmlFor="password">Password</label>
+            <input type="password" name="password" placeholder='Password'/>
+          </div>
+          <button type='submit'>Log In</button>
+        </form>
+        <div>
+            Need an account? <Link to="/signup">Sign Up</Link>
+        </div>   
+      </div>
+    </div>
   )
 }
 

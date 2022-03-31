@@ -1,0 +1,63 @@
+@import 'variables';
+.signup-wrapper {
+    display: grid;
+    grid-template-columns: 3fr 4fr 3fr;
+    grid-template-rows: 1fr 3fr 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    .signup-content {
+        grid-area: 2 / 2 / 3 / 3;
+        font-family: $montserrat;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        .error {
+            padding: 10px;
+            background: #f8c6c6;
+            border-radius: 10px;
+            border: 1px solid;
+            border-color: #b43838;
+            margin: 0;
+        }
+        .signup-form__wrapper {
+            display: flex;
+            flex-direction: column;
+            button {
+                align-self: center;
+                margin-top: 10px;
+            }
+            .signup-form__content {
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 50px;
+                border: 1px solid;
+                border-radius: 15px;
+                border-color: rgb(224, 224, 224);
+                padding: 25px;
+                .signup-form__input {
+                    label {
+                        font-size: 14px;
+                    }
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    input {
+                        border-color: rgb(224, 224, 224);
+                        font-size: 16px;
+                        border-radius: 10px;
+                        padding: 10px;
+                    }
+                    p {
+                        margin-bottom: 15px;
+                    }
+                }
+            }
+            .links {
+                text-align: center;
+            }
+        }
+    }
+}

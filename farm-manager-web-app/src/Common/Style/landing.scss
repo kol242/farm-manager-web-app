@@ -1,0 +1,26 @@
+@import 'variables';
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    font-family: $montserrat;
+    justify-content: center;
+    align-items: center;
+    h1 {
+        margin: 0;
+        font-size: 40px;
+        font-weight: 400;
+    }
+    p {
+        margin: 0;
+        .link {
+            color: #78AF6A;
+        }
+    }
+    #image {
+        margin-top: 40px;
+        width: 35%;
+    }
+    span {
+        color: #78AF6A;
+    }
+}

@@ -1,0 +1,31 @@
+@import 'variables';
+.footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    .link {
+        a {
+            font-size: 40px;
+            color: $white;
+            cursor: pointer;
+            margin: 0 10px;
+            #logo {
+                transition: all .2s ease-in-out;
+                &:hover {
+                    transform: scale(1.2);
+                }
+            }
+        }
+    }
+    p {
+        font-family: $montserrat;
+        font-size: 14px;
+        margin-top: 20px;
+        color: $white;
+        span {
+            font-weight: bold;
+        }
+    }
+    background-color: $dark;
+}
