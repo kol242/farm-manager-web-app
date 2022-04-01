@@ -8,6 +8,8 @@ import FieldForm from '../../Components/Fields/FieldForm'
 import FieldList from '../../Components/Fields/FieldList'
 import FieldSorter from '../../Components/Fields/FieldSorter'
 import FieldModal from '../../Components/Fields/FieldModal'
+import Sidebar from '../../Components/Sidebar'
+import '../../Common/Style/home.scss'
 
 const Fields = observer(() => {
 
@@ -21,20 +23,23 @@ const Fields = observer(() => {
     const paginate = pageNumber => setCurrentPage(pageNumber);
 
     return (
-        <>
-            <button onClick={FieldStore.filterChecker}>Filter</button>
-            { FieldStore.filterCheck ? <Filter /> : null }
-            { FieldStore.modal ? <FieldModal /> : null }
-            <FieldSorter />
-            <Link to="/home">Homepage</Link>
-            <FieldForm />
-            { FieldStore.Fields.length === 0 ? <p>No fields to show. Please add new field.</p> : <FieldList items={currentPosts}/> }
-            <Pagination
-                postsPerPage={postsPerPage}
-                totalPosts={FieldStore.Fields.length}
-                paginate={paginate}
-            />
-        </>
+        <div className="content-home">
+            <Sidebar />
+            <div className="body">
+                <button onClick={FieldStore.filterChecker}>Filter</button>
+                { FieldStore.filterCheck ? <Filter /> : null }
+                { FieldStore.modal ? <FieldModal /> : null }
+                <FieldSorter />
+                <Link to="/home">Homepage</Link>
+                <FieldForm />
+                { FieldStore.Fields.length === 0 ? <p>No fields to show. Please add new field.</p> : <FieldList items={currentPosts}/> }
+                <Pagination
+                    postsPerPage={postsPerPage}
+                    totalPosts={FieldStore.Fields.length}
+                    paginate={paginate}
+                />    
+            </div>
+        </div>
     )
 })
 

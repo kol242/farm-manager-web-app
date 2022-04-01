@@ -1,31 +1,22 @@
 import React from 'react'
+import '../Common/Style/home.scss'
 import AuthService from '../Common/Services/AuthService'
-import { Link, useNavigate } from 'react-router-dom'
-import CropsStore from '../Stores/CropsStore'
-import AnimalStore from '../Stores/AnimalStore'
-import VehicleStore from '../Stores/VehicleStore'
-import FieldStore from '../Stores/FieldStore'
+import Sidebar from '../Components/Sidebar'
 
 const Homepage = () => {
-  const history = useNavigate()
-  function LogoutHandler() {
-    AuthService.logout()
-    history("/")
-  }
   return (
-    <>
-      <h1>Welcome</h1>
-      <br />
-      <button onClick={LogoutHandler}>Log Out</button>
-      <br />
-      <Link to="/crops" onClick={CropsStore.getCrops}>Crops</Link>
-      <br />
-      <Link to="/animals" onClick={AnimalStore.getAnimals}>Animals</Link>
-      <br />
-      <Link to="/vehicles" onClick={VehicleStore.getVehicles}>Vehicles</Link>
-      <br />
-      <Link to="/fields" onClick={FieldStore.getFields}>Fields</Link>
-    </>
+    <div className="content-home">
+      <Sidebar />
+      <div className="body">
+        <div className="body-header">
+          <h1>Welcome <span>{AuthService.userData.username}</span></h1> 
+          <p id="sub-heading">From here you can manage your daily tasks on farm or just keeping track of crop, livestock or field status.</p>
+        </div>
+        <div className="body-content">
+          <h2>Farm analytics</h2>
+        </div>
+      </div>
+    </div>
   )
 }
 

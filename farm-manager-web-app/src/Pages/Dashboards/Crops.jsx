@@ -8,6 +8,8 @@ import Pagination from '../../Components/Pagination'
 import CropForm from '../../Components/Crops/CropForm'
 import Filter from '../../Components/Crops/Filter'
 import CropSorter from '../../Components/Crops/CropSorter'
+import Sidebar from '../../Components/Sidebar'
+import '../../Common/Style/home.scss'
 
 const Crops = observer(() => {
 
@@ -21,20 +23,23 @@ const Crops = observer(() => {
     const paginate = pageNumber => setCurrentPage(pageNumber);
 
     return (
-        <>
-            <button onClick={CropsStore.filterChecker}>Filter</button>
-            { CropsStore.filterCheck ? <Filter /> : null }
-            { CropsStore.modal ? <CropModal /> : null }
-            <CropSorter />
-            <Link to="/home">Homepage</Link>
-            <CropForm />
-            { CropsStore.crops.length === 0 ? <p>No crops to show. Please add new crops.</p> : <CropsList items={currentPosts}/> }
-            <Pagination
-                postsPerPage={postsPerPage}
-                totalPosts={CropsStore.crops.length}
-                paginate={paginate}
-            />
-        </>
+        <div className="content-home">
+            <Sidebar />
+            <div className="body">
+                <button onClick={CropsStore.filterChecker}>Filter</button>
+                { CropsStore.filterCheck ? <Filter /> : null }
+                { CropsStore.modal ? <CropModal /> : null }
+                <CropSorter />
+                <Link to="/home">Homepage</Link>
+                <CropForm />
+                { CropsStore.crops.length === 0 ? <p>No crops to show. Please add new crops.</p> : <CropsList items={currentPosts}/> }
+                <Pagination
+                    postsPerPage={postsPerPage}
+                    totalPosts={CropsStore.crops.length}
+                    paginate={paginate}
+                />    
+            </div>
+        </div>
     )
 })
 

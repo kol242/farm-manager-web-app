@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 const LandingPage = () => {
   return (
-    <div className="content-wrapper">
+    <div className="content-landing">
       <h1>Welcome to the <span>farm</span>!</h1>
       <p>Web App for managing your farm.</p>
       <img src={Image} alt="homeImage" id='image'/>

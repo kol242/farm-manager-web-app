@@ -8,6 +8,8 @@ import AnimalForm from '../../Components/Animals/AnimalForm'
 import AnimalsList from '../../Components/Animals/AnimalsList'
 import AnimalSorter from '../../Components/Animals/AnimalSorter'
 import AnimalModal from '../../Components/Animals/AnimalModal'
+import Sidebar from '../../Components/Sidebar'
+import '../../Common/Style/home.scss'
 
 const Animals = observer(() => {
 
@@ -21,20 +23,23 @@ const Animals = observer(() => {
     const paginate = pageNumber => setCurrentPage(pageNumber);
 
     return (
-        <>
-            <button onClick={AnimalStore.filterChecker}>Filter</button>
-            { AnimalStore.filterCheck ? <Filter /> : null }
-            { AnimalStore.modal ? <AnimalModal /> : null }
-            <AnimalSorter />
-            <Link to="/home">Homepage</Link>
-            <AnimalForm />
-            { AnimalStore.Animals.length === 0 ? <p>No animals to show. Please add new animal.</p> : <AnimalsList items={currentPosts}/> }
-            <Pagination
-                postsPerPage={postsPerPage}
-                totalPosts={AnimalStore.Animals.length}
-                paginate={paginate}
-            />
-        </>
+        <div className="content-home">
+            <Sidebar />
+            <div className="body">
+                <button onClick={AnimalStore.filterChecker}>Filter</button>
+                { AnimalStore.filterCheck ? <Filter /> : null }
+                { AnimalStore.modal ? <AnimalModal /> : null }
+                <AnimalSorter />
+                <Link to="/home">Homepage</Link>
+                <AnimalForm />
+                { AnimalStore.Animals.length === 0 ? <p>No animals to show. Please add new animal.</p> : <AnimalsList items={currentPosts}/> }
+                <Pagination
+                    postsPerPage={postsPerPage}
+                    totalPosts={AnimalStore.Animals.length}
+                    paginate={paginate}
+                />    
+            </div>
+        </div>
     )
 })
 

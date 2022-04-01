@@ -8,6 +8,8 @@ import VehicleList from '../../Components/Vehicles/VehicleList'
 import VehicleSorter from '../../Components/Vehicles/VehicleSorter'
 import VehicleModal from '../../Components/Vehicles/VehicleModal'
 import VehicleStore from '../../Stores/VehicleStore'
+import '../../Common/Style/home.scss'
+import Sidebar from '../../Components/Sidebar'
 
 const Vehicles = observer(() => {
 
@@ -21,20 +23,23 @@ const Vehicles = observer(() => {
     const paginate = pageNumber => setCurrentPage(pageNumber);
 
     return (
-        <>
-            <button onClick={VehicleStore.filterChecker}>Filter</button>
-            { VehicleStore.filterCheck ? <Filter /> : null }
-            { VehicleStore.modal ? <VehicleModal /> : null }
-            <VehicleSorter />
-            <Link to="/home">Homepage</Link>
-            <VehicleForm />
-            { VehicleStore.Vehicles.length === 0 ? <p>No vehicles to show. Please add new vehicle.</p> : <VehicleList items={currentPosts}/> }
-            <Pagination
-                postsPerPage={postsPerPage}
-                totalPosts={VehicleStore.Vehicles.length}
-                paginate={paginate}
-            />
-        </>
+        <div className="content-home">
+            <Sidebar />
+            <div className="body">
+                <button onClick={VehicleStore.filterChecker}>Filter</button>
+                { VehicleStore.filterCheck ? <Filter /> : null }
+                { VehicleStore.modal ? <VehicleModal /> : null }
+                <VehicleSorter />
+                <Link to="/home">Homepage</Link>
+                <VehicleForm />
+                { VehicleStore.Vehicles.length === 0 ? <p>No vehicles to show. Please add new vehicle.</p> : <VehicleList items={currentPosts}/> }
+                <Pagination
+                    postsPerPage={postsPerPage}
+                    totalPosts={VehicleStore.Vehicles.length}
+                    paginate={paginate}
+                />    
+            </div>
+        </div>
     )
 })
 

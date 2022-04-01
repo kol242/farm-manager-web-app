@@ -3,7 +3,6 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import '../Common/Style/navbar.scss'
 import AuthService from '../Common/Services/AuthService'
-import { FaUserCog } from 'react-icons/fa'
 import Image from '../Common/Images/logo.png'
 
 const Navbar = observer(() => {
@@ -33,8 +32,7 @@ const Navbar = observer(() => {
             <div className="user-data">
               <p className="link" onClick={handleLogout}>Log Out</p>
               <div className="link-wrapper">
-                <Link to="/properties" className="link">Profile</Link>
-                <FaUserCog className="icon"/>
+                <Link to="/properties" className="link">Settings</Link>
               </div>
             </div>
             : 
