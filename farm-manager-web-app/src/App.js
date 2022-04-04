@@ -19,22 +19,22 @@ function App() {
         <Navbar className="navbar"/>
         <Routes>
           <Route path="/" element={<LandingPage />}/>
-          <Route path="/login" element={<Login className="body" />} />
-          <Route path="/signup" element={<Signup className="body" />} />
+          <Route path="/login" element={<Login className="body-content" />} />
+          <Route path="/signup" element={<Signup className="body-content" />} />
           <Route exact path="/home" element={<PrivateRoute/>}>
-            <Route exact path= "/home" element={<Homepage className="body"/>}/>  
+            <Route exact path= "/home" element={<Homepage className="body-content"/>}/>  
           </Route>
           <Route exact path="/crops" element={<PrivateRoute/>}>
-            <Route exact path= "/crops" element={<Crops className="body"/>}/>  
+            <Route exact path= "/crops" element={<Crops className="body-content"/>}/>  
           </Route>
           <Route exact path="/animals" element={<PrivateRoute/>}>
-            <Route exact path= "/animals" element={<Animals className="body"/>}/>  
+            <Route exact path= "/animals" element={<Animals className="body-content"/>}/>  
           </Route>
           <Route exact path="/vehicles" element={<PrivateRoute/>}>
-            <Route exact path= "/vehicles" element={<Vehicles className="body"/>}/>  
+            <Route exact path= "/vehicles" element={<Vehicles className="body-content"/>}/>  
           </Route>
           <Route exact path="/fields" element={<PrivateRoute/>}>
-            <Route exact path= "/fields" element={<Fields className="body"/>}/>  
+            <Route exact path= "/fields" element={<Fields className="body-content"/>}/>  
           </Route>
         </Routes>
         <Footer className="footer" />

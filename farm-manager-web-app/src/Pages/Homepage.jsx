@@ -2,8 +2,9 @@ import React from 'react'
 import '../Common/Style/home.scss'
 import AuthService from '../Common/Services/AuthService'
 import Sidebar from '../Components/Sidebar'
+import { observer } from 'mobx-react'
 
-const Homepage = () => {
+const Homepage = observer(() => {
   return (
     <div className="content-home">
       <Sidebar />
@@ -18,6 +19,6 @@ const Homepage = () => {
       </div>
     </div>
   )
-}
+})
 
 export default Homepage
