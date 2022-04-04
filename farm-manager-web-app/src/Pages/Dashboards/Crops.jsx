@@ -24,6 +24,7 @@ const Crops = observer(() => {
     return (
         <div className="content-home">
             { CropsStore.modal ? <CropModal /> : null }
+            { CropsStore.addingCheck ? <CropForm /> : null }
             <Sidebar />
             <div className="body">
                 <div className="body-content">
@@ -34,7 +35,6 @@ const Crops = observer(() => {
                     </div>
                     <button id="btn-add" onClick={CropsStore.addingChecker}>New crop</button>
                     <div className="body-content__main">
-                        { CropsStore.addingCheck ? <CropForm /> : null } 
                         { CropsStore.crops.length === 0 ? <p>No crops to show. Please add new crops.</p> : <CropsList items={currentPosts}/> }    
                     </div>
                     <div className="body-content__foot">

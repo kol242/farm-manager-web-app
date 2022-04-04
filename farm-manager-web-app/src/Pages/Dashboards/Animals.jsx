@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { observer } from 'mobx-react'
 import AnimalStore from '../../Stores/AnimalStore'
-import { Link } from 'react-router-dom'
 import Pagination from '../../Components/Pagination'
 import Filter from '../../Components/Animals/Filter'
 import AnimalForm from '../../Components/Animals/AnimalForm'
@@ -24,20 +23,28 @@ const Animals = observer(() => {
 
     return (
         <div className="content-home">
+            { AnimalStore.modal ? <AnimalModal /> : null }
+            { AnimalStore.addingCheck ? <AnimalForm /> : null }
             <Sidebar />
             <div className="body">
-                <button onClick={AnimalStore.filterChecker}>Filter</button>
-                { AnimalStore.filterCheck ? <Filter /> : null }
-                { AnimalStore.modal ? <AnimalModal /> : null }
-                <AnimalSorter />
-                <Link to="/home">Homepage</Link>
-                <AnimalForm />
-                { AnimalStore.Animals.length === 0 ? <p>No animals to show. Please add new animal.</p> : <AnimalsList items={currentPosts}/> }
-                <Pagination
-                    postsPerPage={postsPerPage}
-                    totalPosts={AnimalStore.Animals.length}
-                    paginate={paginate}
-                />    
+                <div className="body-content">
+                    <div className="body-content__header">
+                        <AnimalSorter /> 
+                        <button id="btn-primary" onClick={AnimalStore.filterChecker}>Filter</button>
+                        { AnimalStore.filterCheck ? <Filter /> : null }
+                    </div>
+                    <button id="btn-add" onClick={AnimalStore.addingChecker}>New animal</button>
+                    <div className="body-content__main">
+                        { AnimalStore.Animals.length === 0 ? <p>No animals to show. Please add new animal.</p> : <AnimalsList items={currentPosts}/> }    
+                    </div>
+                    <div className="body-content__foot">
+                    <Pagination
+                        postsPerPage={postsPerPage}
+                        totalPosts={AnimalStore.Animals.length}
+                        paginate={paginate}
+                    /> 
+                    </div>
+                </div>
             </div>
         </div>
     )

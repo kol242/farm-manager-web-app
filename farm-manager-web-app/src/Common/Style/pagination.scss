@@ -2,6 +2,8 @@
 .pagination-nav {
     display: flex;
     .pagination-nav__item {
+        display: flex;
+        gap: 10px;
         list-style-type: none;
         margin: 0;
         padding: 0;

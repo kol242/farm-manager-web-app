@@ -12,9 +12,14 @@ class AnimalStore {
     modal = false
     filter = ""
     filterCheck = false
+    addingCheck = false
 
     constructor() {
         makeAutoObservable(this)
+    }
+
+    addingChecker = () => {
+        this.addingCheck ? this.addingCheck = false : this.addingCheck = true
     }
 
     modalHandler = (data) => {

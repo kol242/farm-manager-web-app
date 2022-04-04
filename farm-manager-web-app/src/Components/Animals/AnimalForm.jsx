@@ -20,24 +20,42 @@ const AnimalForm = observer(() => {
     }
 
   return (
+
     <div>
-        <form onSubmit={handleSubmit}>
-            <input type="text" name='name' placeholder="Name..."/>
-            <br />
-            <input type="text" name='type' placeholder="Type..."/>
-            <br />
-            <input type="number" name='quantity' placeholder="Quantity..."/>
-            <br />
-            <input type="number" name='cost' placeholder="Cost..."/>
-            <br />
-            <input type="text" name='descr' placeholder="Description..."/>
-            <br />
-            <input type="text" name='product' placeholder="Product..."/>
-            <br />
-            <input type="number" name='profit' placeholder="Profit..."/>
-            <br />
-            <button type="submit">Add animal</button>
-        </form>
+        <div className="modal">
+        <div className="modal-content">
+        <div className="modal-header">
+            <p>Create Animal</p>
+            <span className="close" onClick={AnimalStore.addingChecker}>&times;</span>
+        </div>
+        <hr />
+        <div className="modal-body">
+            <form className="modal-form" onSubmit={handleSubmit}>
+                <div className="modal-form__inputs">
+                    <div>
+                        <label htmlFor="name">Animal Name</label>
+                        <input type="text" name='name' />
+                        <label htmlFor="quantity">Quantity</label>
+                        <input type="number" name='quantity' />
+                        <label htmlFor="cost">Cost</label>
+                        <input type="number" name='cost' />
+                        <label htmlFor="profit">Profit</label>
+                        <input type="number" name='profit' />
+                    </div>
+                    <div>
+                        <label htmlFor="type">Animal type</label>
+                        <input type="text" name='type' />
+                        <label htmlFor="descr">Description</label>
+                        <input type="text" name='descr' />
+                        <label htmlFor="product">Product</label>
+                        <input type="text" name='product' />
+                    </div>    
+                </div>
+                <button type="submit">Add Animal</button>
+            </form>
+        </div>
+    </div>
+</div>
     </div>
   )
 })

@@ -2,6 +2,7 @@ import { observer } from 'mobx-react'
 import React from 'react'
 import CreateService from '../../Common/Services/CreateService'
 import CropsStore from '../../Stores/CropsStore'
+import '../../Common/Style/modal.scss'
 
 const CropForm = observer(() => {
     function handleSubmit(e) {
@@ -22,28 +23,51 @@ const CropForm = observer(() => {
     }
 
   return (
-    <div>
-        <form className="create-form" onSubmit={handleSubmit}>
-            <input type="text" name='name' placeholder="Name..."/>
-            <input type="text" name='type' placeholder="Type..."/>
-            <input type="number" name='quantity' placeholder="Quantity..."/>
-            <select name="unit">
-                <option value="kg">kg</option>
-                <option value="t">t</option>
-                <option value="lb">lb</option>
-            </select>
-            <input type="number" name='cost' placeholder="Cost..."/>
-            <input type="text" name='descr' placeholder="Description..."/>
-            <input type="text" name='state' placeholder="State..."/>
-            <label htmlFor="harvested">Harvested</label>
-            <select name="harvested">
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
-            <input type="number" name='profit' placeholder="Profit..."/>
-            <button type="submit">Add</button>
-        </form>
+    <div className="modal">
+    <div className="modal-content">
+        <div className="modal-header">
+            <p>Create Crop</p>
+            <span className="close" onClick={CropsStore.addingChecker}>&times;</span>
+        </div>
+        <hr />
+        <div className="modal-body">
+            <form className="modal-form" onSubmit={handleSubmit}>
+                <div className="modal-form__inputs">
+                    <div>
+                        <label htmlFor="name">Crop Name</label>
+                        <input type="text" name='name' />
+                        <label htmlFor="quantity">Quantity</label>
+                        <input type="number" name='quantity' />
+                        <label htmlFor="cost">Cost per kg/t/lb</label>
+                        <input type="number" name='cost' />
+                        <label htmlFor="state">Crop state</label>
+                        <input type="text" name='state' />
+                        <label htmlFor="profit">Profit</label>
+                        <input type="number" name='profit' />
+                    </div>
+                    <div>
+                        <label htmlFor="type">Crop type</label>
+                        <input type="text" name='type' />
+                        <label htmlFor="unit">Weight unit</label> 
+                        <select name="unit">
+                            <option value="kg">kg</option>
+                            <option value="t">t</option>
+                            <option value="lb">lb</option>
+                        </select>
+                        <label htmlFor="descr">Description</label>
+                        <input type="text" name='descr' />
+                        <label htmlFor="harvested">Harvested</label>
+                        <select name="harvested">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>    
+                </div>
+                <button type="submit">Add Crop</button>
+            </form>
+        </div>
     </div>
+</div>
   )
 })
 

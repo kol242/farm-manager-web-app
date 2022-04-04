@@ -26,24 +26,30 @@ const AnimalModal = observer(() => {
             </div>
             <hr />
             <div className="modal-body">
-                <form onSubmit={handleSubmit}>
-                    <input type="text" name='name' defaultValue={AnimalStore.Animal.name}/>
-                    <br />
-                    <input type="text" name='type' defaultValue={AnimalStore.Animal.type} />
-                    <br />
-                    <input type="number" name='quantity' defaultValue={AnimalStore.Animal.quantity} />
-                    <br />
-                    <input type="number" name='cost' defaultValue={AnimalStore.Animal.cost} />
-                    <br />
-                    <input type="text" name='descr' defaultValue={AnimalStore.Animal.descr} />
-                    <br />
-                    <input type="text" name='product' defaultValue={AnimalStore.Animal.product} />
-                    <br />
-                    <input type="number" name='profit' defaultValue={AnimalStore.Animal.profit} />
-                    <br />
-                    <button type="submit">Update</button>
-                </form>
-            </div>
+            <form className="modal-form" onSubmit={handleSubmit}>
+                <div className="modal-form__inputs">
+                    <div>
+                        <label htmlFor="name">Animal Name</label>
+                        <input type="text" name='name' defaultValue={AnimalStore.Animal.name}/>
+                        <label htmlFor="quantity">Quantity</label>
+                        <input type="number" name='quantity' defaultValue={AnimalStore.Animal.quantity} />
+                        <label htmlFor="cost">Cost</label>
+                        <input type="number" name='cost' defaultValue={AnimalStore.Animal.cost} />
+                        <label htmlFor="profit">Profit</label>
+                        <input type="number" name='profit' defaultValue={AnimalStore.Animal.profit} />
+                    </div>
+                    <div>
+                        <label htmlFor="type">Animal type</label>
+                        <input type="text" name='type' defaultValue={AnimalStore.Animal.type} />
+                        <label htmlFor="profit">Description</label>
+                        <input type="text" name='descr' defaultValue={AnimalStore.Animal.descr} />
+                        <label htmlFor="product">Product</label>
+                        <input type="text" name='product' defaultValue={AnimalStore.Animal.product} />
+                    </div>    
+                </div>
+                <button type="submit">Update</button>
+            </form>
+        </div>
         </div>
     </div>
   )

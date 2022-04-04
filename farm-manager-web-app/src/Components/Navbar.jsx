@@ -31,9 +31,6 @@ const Navbar = observer(() => {
             { AuthService.loggedIn === true ? 
             <div className="user-data">
               <p className="link" onClick={handleLogout}>Log Out</p>
-              <div className="link-wrapper">
-                <Link to="/properties" className="link">Settings</Link>
-              </div>
             </div>
             : 
             <div className="user-data">

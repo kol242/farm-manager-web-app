@@ -27,30 +27,41 @@ const CropModal = observer(() => {
             </div>
             <hr />
             <div className="modal-body">
-                <form onSubmit={handleSubmit}>
-                    <input type="text" name='name' defaultValue={CropsStore.crop.name}/>
-                    <br />
-                    <input type="text" name='type' defaultValue={CropsStore.crop.type} />
-                    <br />
-                    <input type="number" name='quantity' defaultValue={CropsStore.crop.quantity} />
-                    <br />
-                    <input type="number" name='cost' defaultValue={CropsStore.crop.cost} />
-                    <br />
-                    <input type="text" name='descr' defaultValue={CropsStore.crop.descr} />
-                    <br />
-                    <input type="text" name='state' defaultValue={CropsStore.crop.state} />
-                    <br />
-                    <label htmlFor="harvested">Harvested</label>
-                    <select defaultValue={CropsStore.crop.harvested} name="harvested">
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                    <br />
-                    <input type="number" name='profit' defaultValue={CropsStore.crop.profit} />
-                    <br />
-                    <button type="submit">Update</button>
-                </form>
-            </div>
+            <form className="modal-form" onSubmit={handleSubmit}>
+                <div className="modal-form__inputs">
+                    <div>
+                        <label htmlFor="name">Crop Name</label>
+                        <input type="text" name='name' defaultValue={CropsStore.crop.name}/>
+                        <label htmlFor="quantity">Quantity</label>
+                        <input type="number" name='quantity' defaultValue={CropsStore.crop.quantity} />
+                        <label htmlFor="cost">Cost per kg/t/lb</label>
+                        <input type="number" name='cost' defaultValue={CropsStore.crop.cost} />
+                        <label htmlFor="state">Crop state</label>
+                        <input type="text" name='state' defaultValue={CropsStore.crop.state} />
+                        <label htmlFor="profit">Profit</label>
+                        <input type="number" name='profit' defaultValue={CropsStore.crop.profit} />
+                    </div>
+                    <div>
+                        <label htmlFor="type">Crop type</label>
+                        <input type="text" name='type' defaultValue={CropsStore.crop.type} />
+                        <label htmlFor="unit">Weight unit</label> 
+                        <select name="unit">
+                            <option value="kg">kg</option>
+                            <option value="t">t</option>
+                            <option value="lb">lb</option>
+                        </select>
+                        <label htmlFor="profit">Description</label>
+                        <input type="text" name='descr' defaultValue={CropsStore.crop.descr} />
+                        <label htmlFor="harvested">Harvested</label>
+                        <select defaultValue={CropsStore.crop.harvested} name="harvested">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>    
+                </div>
+                <button type="submit">Update</button>
+            </form>
+        </div>
         </div>
     </div>
   )

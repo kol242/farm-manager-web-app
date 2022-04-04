@@ -25,7 +25,7 @@ const AnimalSorter = observer(() => {
                 <option value="ProfitAsc">By profit ascending</option>
                 <option value="ProfitDesc">By profit descending</option>
             </select>
-            <button onClick={AnimalStore.getSortedAnimals}>Sort</button>
+            <button id="btn-primary" onClick={AnimalStore.getSortedAnimals}>Sort</button>
         </>
     )
 })

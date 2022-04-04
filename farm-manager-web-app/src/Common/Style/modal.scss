@@ -24,9 +24,9 @@
         display: flex;
         flex-direction: column;
         background-color: #fefefe;
-        margin: 15% auto;
+        margin: 10% auto;
         /* 15% from the top and centered */
-        padding: 20px;
+        padding: 20px 40px;
         border-radius: 15px;
         border: 1px solid rgb(172, 172, 172);
         width: 20%;
@@ -53,7 +53,19 @@
         }
         .modal-body {
             display: flex;
+            justify-content: center;
             margin-top: 16px;
+            .modal-form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                .modal-form__inputs {
+                    display: flex;
+                    justify-content: center;
+                    gap: 30px;
+                }
+            }
         }
     }
 }
