@@ -23,7 +23,7 @@ const CropSorter = observer(() => {
                 <option value="ProfitAsc">By profit ascending</option>
                 <option value="ProfitDesc">By profit descending</option>
             </select>
-            <button onClick={CropsStore.getSortedCrops}>Sort</button>
+            <button id="btn-primary"  onClick={CropsStore.getSortedCrops}>Sort</button>
         </>
     )
 })

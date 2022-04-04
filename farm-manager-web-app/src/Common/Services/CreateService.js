@@ -2,6 +2,7 @@ import {db} from '../firebase-config'
 import { collection, addDoc } from 'firebase/firestore'
 import AuthService from './AuthService'
 import ToastStore from '../../Stores/ToastStore'
+import CropsStore from '../../Stores/CropsStore'
 
 class CreateService {
     newCrop = async (payload) => {
@@ -19,6 +20,7 @@ class CreateService {
                 User: AuthService.currentUser.uid,
                 Unit: payload.unit
             })
+            CropsStore.addingChecker()
             ToastStore.notificationType({
                 type: "SUCCESS",
                 title: "Success!",

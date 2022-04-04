@@ -9,13 +9,13 @@ const Harvested = observer(() => {
     }
 
   return (
-    <> 
+    <div> 
         <select defaultValue={'default'} onChange={input} name="harvested">
           <option value="default" disabled>Select...</option>
           <option value="Yes">Yes</option>
           <option value="No">No</option>
         </select>
-    </>
+    </div>
   )
 })
 

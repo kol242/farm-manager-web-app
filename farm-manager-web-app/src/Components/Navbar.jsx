@@ -21,11 +21,11 @@ const Navbar = observer(() => {
         <div className="nav">
             { AuthService.loggedIn === true ? 
               <div className="logo">
-                <img src={Image} alt="Img" /><Link className="link" to="/home">Farm Manager App</Link>  
+                <img className="logo-img" src={Image} alt="Img" /><Link className="link" to="/home">Farm Manager App</Link>  
               </div> 
             : 
               <div className="logo">
-                <img src={Image} alt="Img" /><Link className="link" to="/">Farm Manager App</Link>  
+                <img className="logo-img" src={Image} alt="Img" /><Link className="link" to="/">Farm Manager App</Link>  
               </div>  
             }
             { AuthService.loggedIn === true ? 

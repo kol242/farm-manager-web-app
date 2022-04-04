@@ -12,6 +12,7 @@ class CropsStore {
     modal = false
     filter = ""
     filterCheck = false
+    addingCheck = false
 
     constructor() {
         makeAutoObservable(this)
@@ -29,6 +30,10 @@ class CropsStore {
 
     filterChecker = () => {
         this.filterCheck ? this.filterCheck = false : this.filterCheck = true
+    }
+
+    addingChecker = () => {
+        this.addingCheck ? this.addingCheck = false : this.addingCheck = true
     }
 
     pushCrops = async (documentSnapshot) => {

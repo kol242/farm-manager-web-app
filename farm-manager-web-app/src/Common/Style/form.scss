@@ -7,6 +7,7 @@ form {
     }
     textArea,
     input {
+        font-size: 13px;
         padding: 7px 7px;
         border: 1px solid rgb(216, 216, 216);
         border-radius: 10px;
@@ -31,8 +32,8 @@ form {
     }
     select {
         width: 100%;
-        font-size: 16px;
-        padding: 10px;
+        font-size: 13px;
+        padding: 7px 7px;
         border-radius: 10px;
         margin-bottom: 12px;
         font-family: $app-font;
@@ -43,4 +44,9 @@ form {
         font-size: 12px;
         color: rgb(219, 1, 1);
     }
+}
+
+.create-form {
+    display: flex;
+    flex-direction: column;
 }

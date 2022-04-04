@@ -60,9 +60,59 @@
             }
         }
         .body-content {
-            margin-left: 35px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: flex-start;
+            margin: 35px;
             h2 {
                 font-weight: 500;
+            }
+            #btn-add {
+                width: 80px;
+                background-color: $green;
+                color: $dark;
+                padding: 8px;
+                border-style: none;
+                font-family: $app-font;
+                border-radius: 10px;
+                transition: all 0.3s ease;
+                &:hover {
+                    transition: all 0.3s ease;
+                    opacity: 0.8;
+                    cursor: pointer;
+                }
+            }
+            .body-content__header {
+                display: flex;
+                justify-content: start;
+                align-items: center;
+                gap: 15px;
+                #btn-primary {
+                    width: 80px;
+                    background-color: $blue;
+                    color: white;
+                    padding: 8px;
+                    border-style: none;
+                    font-family: $app-font;
+                    border-radius: 10px;
+                    transition: all 0.3s ease;
+                    &:hover {
+                        transition: all 0.3s ease;
+                        opacity: 0.8;
+                        cursor: pointer;
+                    }
+                }
+                select {
+                    font-size: 13px;
+                    padding: 7px 7px;
+                    border-radius: 10px;
+                    font-family: $app-font;
+                    border: 1px solid rgb(216, 216, 216);
+                }
+            }
+            .body-content__foot {
+                align-self: center;
             }
         }
     }

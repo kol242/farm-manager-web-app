@@ -10,6 +10,7 @@ import Harvested from '../FilterInputs/Harvested'
 import State from '../FilterInputs/State'
 import CropFilter from './CropFilter'
 import Product from '../FilterInputs/Product'
+import '../../Common/Style/filter.scss'
 
 const Filter = observer(() => {
   const filterSubmit = (e) => {
@@ -19,15 +20,15 @@ const Filter = observer(() => {
   return (
     <>
       <CropFilter />
-      <form onSubmit={filterSubmit}>
-        { CropsStore.filter === "Quantity" ? <Quantity /> : null }
-        { CropsStore.filter === "Cost" ? <Cost /> : null }
-        { CropsStore.filter === "Profit" ? <Profit /> : null }
-        { CropsStore.filter === "Name" ? <Name /> : null }
-        { CropsStore.filter === "Type" ? <Type /> : null }
-        { CropsStore.filter === "Harvested" ? <Harvested /> : null }
-        { CropsStore.filter === "State" ? <State /> : null }
-        { CropsStore.filter === "Product" ? <Product /> : null }
+      <form className="filter-input" onSubmit={filterSubmit}>
+        { CropsStore.filter === "Quantity" ? <Quantity className="filter-input"/> : null }
+        { CropsStore.filter === "Cost" ? <Cost className="filter-input" /> : null }
+        { CropsStore.filter === "Profit" ? <Profit className="filter-input" /> : null }
+        { CropsStore.filter === "Name" ? <Name className="filter-input" /> : null }
+        { CropsStore.filter === "Type" ? <Type className="filter-input" /> : null }
+        { CropsStore.filter === "Harvested" ? <Harvested className="filter-input" /> : null }
+        { CropsStore.filter === "State" ? <State className="filter-input" /> : null }
+        { CropsStore.filter === "Product" ? <Product className="filter-input" /> : null }
         <button type="submit">Search</button>
       </form>
     </>

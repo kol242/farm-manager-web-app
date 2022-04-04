@@ -1,0 +1,15 @@
+@import 'variables';
+.filter-input {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    input {
+        margin: 0;
+    }
+    select {
+        margin: 0;
+    }
+    p {
+        margin: 0;
+    }
+}
