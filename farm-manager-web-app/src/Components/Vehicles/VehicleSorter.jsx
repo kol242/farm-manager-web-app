@@ -21,7 +21,7 @@ const VehicleSorter = observer(() => {
                 <option value="CostAsc">By cost ascending</option>
                 <option value="CostDesc">By cost descending</option>
             </select>
-            <button onClick={VehicleStore.getSortedVehicles}>Sort</button>
+            <button id="btn-primary" onClick={VehicleStore.getSortedVehicles}>Sort</button>
         </>
     )
 })

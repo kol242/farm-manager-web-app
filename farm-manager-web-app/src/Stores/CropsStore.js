@@ -14,6 +14,10 @@ class CropsStore {
     filterCheck = false
     addingCheck = false
 
+    chartLabels = []
+    chartProfit = []
+    chartCost = []
+
     constructor() {
         makeAutoObservable(this)
     }
@@ -53,6 +57,15 @@ class CropsStore {
                     unit: doc.data().Unit
                 }
             }) 
+            this.chartLabels = filtered.map(doc => {
+                return doc.data().Name
+            })
+            this.chartProfit = filtered.map(doc => {
+                return doc.data().Profit
+            })
+            this.chartCost = filtered.map(doc => {
+                return doc.data().Cost
+            })
         })
     }
 

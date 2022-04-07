@@ -12,9 +12,17 @@ class VehicleStore {
     modal = false
     filter = ""
     filterCheck = false
+    addingCheck = false
+
+    chartLabels = []
+    chartCost = []
 
     constructor() {
         makeAutoObservable(this)
+    }
+
+    addingChecker = () => {
+        this.addingCheck ? this.addingCheck = false : this.addingCheck = true
     }
 
     modalHandler = (data) => {
@@ -44,6 +52,12 @@ class VehicleStore {
                     descr: doc.data().Description
                 }
             }) 
+            this.chartLabels = filtered.map(doc => {
+                return doc.data().Name
+            })
+            this.chartCost = filtered.map(doc => {
+                return doc.data().Cost
+            })
         })
     }
 

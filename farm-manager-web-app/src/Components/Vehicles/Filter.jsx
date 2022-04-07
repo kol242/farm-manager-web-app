@@ -7,6 +7,7 @@ import Quantity from '../FilterInputs/Quantity'
 import Name from '../FilterInputs/Name'
 import Type from '../FilterInputs/Type'
 import VehicleFilter from './VehicleFilter'
+import '../../Common/Style/filter.scss'
 
 const Filter = observer(() => {
   const filterSubmit = (e) => {
@@ -16,7 +17,7 @@ const Filter = observer(() => {
   return (
     <>
       <VehicleFilter />
-      <form onSubmit={filterSubmit}>
+      <form className="filter-input" onSubmit={filterSubmit}>
         { VehicleStore.filter === "Quantity" ? <Quantity /> : null }
         { VehicleStore.filter === "Cost" ? <Cost /> : null }
         { VehicleStore.filter === "Profit" ? <Profit /> : null }

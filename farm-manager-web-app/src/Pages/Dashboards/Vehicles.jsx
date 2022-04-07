@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { observer } from 'mobx-react'
-import { Link } from 'react-router-dom'
 import Pagination from '../../Components/Pagination'
 import Filter from '../../Components/Vehicles/Filter'
 import VehicleForm from '../../Components/Vehicles/VehicleForm'
@@ -24,20 +23,28 @@ const Vehicles = observer(() => {
 
     return (
         <div className="content-home">
+            { VehicleStore.modal ? <VehicleModal /> : null }
+            { VehicleStore.addingCheck ? <VehicleForm /> : null }
             <Sidebar />
             <div className="body">
-                <button onClick={VehicleStore.filterChecker}>Filter</button>
-                { VehicleStore.filterCheck ? <Filter /> : null }
-                { VehicleStore.modal ? <VehicleModal /> : null }
-                <VehicleSorter />
-                <Link to="/home">Homepage</Link>
-                <VehicleForm />
-                { VehicleStore.Vehicles.length === 0 ? <p>No vehicles to show. Please add new vehicle.</p> : <VehicleList items={currentPosts}/> }
-                <Pagination
-                    postsPerPage={postsPerPage}
-                    totalPosts={VehicleStore.Vehicles.length}
-                    paginate={paginate}
-                />    
+                <div className="body-content">
+                    <div className="body-content__header">
+                        <VehicleSorter />
+                        <button id="btn-primary" onClick={VehicleStore.filterChecker}>Filter</button>
+                        { VehicleStore.filterCheck ? <Filter /> : null }
+                    </div>
+                    <button id="btn-add" onClick={VehicleStore.addingChecker}>New vehicle</button>
+                    <div className="body-content__main">
+                        { VehicleStore.Vehicles.length === 0 ? <p>No vehicles to show. Please add new vehicle.</p> : <VehicleList items={currentPosts}/> }    
+                    </div>
+                    <div className="body-content__foot">
+                        <Pagination
+                            postsPerPage={postsPerPage}
+                            totalPosts={VehicleStore.Vehicles.length}
+                            paginate={paginate}
+                        />    
+                    </div>
+                </div>
             </div>
         </div>
     )

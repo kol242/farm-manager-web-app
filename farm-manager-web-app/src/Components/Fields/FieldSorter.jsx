@@ -25,7 +25,7 @@ const FieldSorter = observer(() => {
                 <option value="CropAsc">By crop ascending</option>
                 <option value="CropDesc">By crop descending</option>
             </select>
-            <button onClick={FieldStore.getSortedFields}>Sort</button>
+            <button id="btn-primary" onClick={FieldStore.getSortedFields}>Sort</button>
         </>
     )
 })

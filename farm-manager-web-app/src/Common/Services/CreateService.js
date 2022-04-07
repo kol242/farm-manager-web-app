@@ -3,6 +3,9 @@ import { collection, addDoc } from 'firebase/firestore'
 import AuthService from './AuthService'
 import ToastStore from '../../Stores/ToastStore'
 import CropsStore from '../../Stores/CropsStore'
+import AnimalStore from '../../Stores/AnimalStore'
+import FieldStore from '../../Stores/FieldStore'
+import VehicleStore from '../../Stores/VehicleStore'
 
 class CreateService {
     newCrop = async (payload) => {
@@ -49,6 +52,7 @@ class CreateService {
                 Profit: Number(payload.profit),
                 User: AuthService.currentUser.uid
             })
+            AnimalStore.addingChecker()
             ToastStore.notificationType({
                 type: "SUCCESS",
                 title: "Success!",
@@ -75,6 +79,7 @@ class CreateService {
                 Description: payload.descr,
                 User: AuthService.currentUser.uid
             })
+            VehicleStore.addingChecker()
             ToastStore.notificationType({
                 type: "SUCCESS",
                 title: "Success!",
@@ -105,6 +110,7 @@ class CreateService {
                 User: AuthService.currentUser.uid,
                 Unit: payload.unit
             })
+            FieldStore.addingChecker()
             ToastStore.notificationType({
                 type: "SUCCESS",
                 title: "Success!",

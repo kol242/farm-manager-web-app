@@ -28,29 +28,36 @@ const FieldModal = observer(() => {
             </div>
             <hr />
             <div className="modal-body">
-                <form onSubmit={handleSubmit}>
-                    <input type="text" name='name' defaultValue={FieldStore.Field.name}/>
-                    <br />
-                    <input type="text" name='type' defaultValue={FieldStore.Field.type} />
-                    <br />
-                    <input type="number" name='quantity' defaultValue={FieldStore.Field.quantity} />
-                    <br />
-                    <input type="number" name='cost' defaultValue={FieldStore.Field.cost} />
-                    <br />
-                    <input type="text" name='descr' defaultValue={FieldStore.Field.descr} />
-                    <br />
-                    <input type="number" name='size' defaultValue={FieldStore.Field.size} />
-                    <br />
-                    <input type="text" name='crop' defaultValue={FieldStore.Field.crop} />
-                    <br />
-                    <input type="text" name='treatment' defaultValue={FieldStore.Field.treatment} />
-                    <br />
-                    <select defaultValue={'default'}name="unit">
-                        <option value="default">{FieldStore.Field.unit}</option>
-                        <option value="km2">km2</option>
-                        <option value="ha">ha</option>
-                        <option value="a">a</option>
-                    </select>
+                <form className="modal-form" onSubmit={handleSubmit}>
+                    <div className="modal-form__inputs">
+                        <div>
+                            <label htmlFor="name">Field Name</label>
+                            <input type="text" name='name' defaultValue={FieldStore.Field.name}/>
+                            <label htmlFor="quantity">Quantity</label>
+                            <input type="number" name='quantity' defaultValue={FieldStore.Field.quantity} />
+                            <label htmlFor="cost">Cost per km2/ha/a</label>
+                            <input type="number" name='cost' defaultValue={FieldStore.Field.cost} />
+                            <label htmlFor="crop">Crop</label>
+                            <input type="text" name='crop' defaultValue={FieldStore.Field.crop} />
+                        </div>
+                        <div>
+                            <label htmlFor="profit">Profit</label>
+                            <input type="number" name='profit' defaultValue={FieldStore.Field.profit} />
+                            <label htmlFor="type">Field type</label>
+                            <input type="text" name='type' defaultValue={FieldStore.Field.type} />
+                            <label htmlFor="unit">Size unit</label> 
+                            <select defaultValue={'default'} name="unit">
+                                <option value="default">{FieldStore.Field.unit}</option>
+                                <option value="km2">km2</option>
+                                <option value="ha">ha</option>
+                                <option value="a">a</option>
+                            </select>
+                            <label htmlFor="profit">Description</label>
+                            <input type="text" name='descr' defaultValue={FieldStore.Field.descr} />
+                            <label htmlFor="treatment">Crop Treatment</label>
+                            <input type="text" name='treatment' defaultValue={FieldStore.Field.treatment} />
+                        </div>    
+                    </div>
                     <button type="submit">Update</button>
                 </form>
             </div>

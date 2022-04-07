@@ -12,9 +12,17 @@ class FieldStore {
     modal = false
     filter = ""
     filterCheck = false
+    addingCheck = false
+
+    chartLabels = []
+    chartSize = []
 
     constructor() {
         makeAutoObservable(this)
+    }
+
+    addingChecker = () => {
+        this.addingCheck ? this.addingCheck = false : this.addingCheck = true
     }
 
     modalHandler = (data) => {
@@ -48,6 +56,12 @@ class FieldStore {
                     unit: doc.data().Unit
                 }
             }) 
+            this.chartLabels = filtered.map(doc => {
+                return doc.data().Name
+            })
+            this.chartSize = filtered.map(doc => {
+                return doc.data().Size
+            })
         })
     }
 

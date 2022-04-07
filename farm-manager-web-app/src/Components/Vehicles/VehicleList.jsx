@@ -7,17 +7,32 @@ const VehicleList = observer(({items}) => {
   return (
     <div>
         { items.map((item) => 
-            <ul key={item.docId}>
-                <li>Name: {item.name}</li>
-                <li>Type: {item.type}</li>
-                <li>Quantity: {item.quantity}</li>
-                <li>Cost: {item.cost} {AuthService.userData.currency}</li>
-                <li>Description: {item.descr}</li>
-                <button onClick={() => VehicleStore.deleteVehicle(item.docId)}>Delete</button>
-                <button onClick={() => VehicleStore.modalHandler(item)}>Update</button>
+            <ul className="card-list" key={item.docId}>
+                <li className="card">
+                  <p className="card-item">
+                    <span className="label">Name</span> 
+                    {item.name}
+                  </p>
+                  <p className="card-item">
+                    <span className="label">Type</span> 
+                    {item.type}
+                  </p>
+                  <p className="card-item">
+                    <span className="label">Cost</span>
+                    {item.cost} {AuthService.userData.currency}
+                  </p>
+                  <p className="card-item">
+                    <span className="label">Description</span>
+                    {item.descr}
+                  </p>
+                  <div className="btn-wrapper">
+                    <button id="btn-delete" onClick={() => VehicleStore.deleteVehicle(item.docId)}>Delete</button>
+                    <button id="btn-update" onClick={() => VehicleStore.modalHandler(item)}>Update</button>  
+                  </div>
+                </li>
             </ul>
         )}
-    </div> 
+    </div>
   )
 })
 

@@ -48,15 +48,11 @@
         grid-area: 1 / 2 / 2 / 3;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: start;
         height: 100%;
         gap: 50px;
         margin: 35px;
-        .body-header {
-            margin-top: 35px;
-            margin-left: 35px;
-            #sub-heading {
+        .body-title {
+            #body-subtitle {
                 color: #575757;
             }
         }
@@ -68,6 +64,18 @@
             align-items: flex-start;
             h2 {
                 font-weight: 500;
+            }
+            .charts {
+                display: flex;
+                gap: 20px;
+                .chart {
+                    width: 480px;
+                    height: 280px;
+                    #msg {
+                        font-size: 12px;
+                        color: #A4A4A4;
+                    }
+                }
             }
             #btn-add {
                 width: 100px;

@@ -6,6 +6,9 @@ import { addDoc, collection, doc, getDocs, query, updateDoc, where } from 'fireb
 import ToastStore from '../../Stores/ToastStore'
 import axios from 'axios'
 import CropsStore from '../../Stores/CropsStore'
+import AnimalStore from '../../Stores/AnimalStore'
+import VehicleStore from '../../Stores/VehicleStore'
+import FieldStore from '../../Stores/FieldStore'
 
 class AuthService {
     userData = {}
@@ -85,6 +88,10 @@ class AuthService {
             runInAction(() => {
                 this.getUserData(userData.email)
                 this.loggedIn = true
+                CropsStore.getCrops()
+                AnimalStore.getAnimals()
+                FieldStore.getFields()
+                VehicleStore.getVehicles()
             })
         } catch(err) {
             this.loggedIn = false
@@ -120,10 +127,19 @@ class AuthService {
         })
     }
 
+    logoutCleaner = () => {
+        CropsStore.crops = []
+        CropsStore.chartCost = []
+        CropsStore.chartProfit = []
+        AnimalStore.Animals = []
+        VehicleStore.Vehicles = []
+        FieldStore.Fields = []
+    }
+
     logout = async () => {
         await signOut(auth)
         runInAction(() => {
-            CropsStore.crops = []
+            this.logoutCleaner()
             this.loggedIn = false
             this.signupChecker = false
             ToastStore.notificationType({

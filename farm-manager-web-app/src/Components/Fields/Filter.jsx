@@ -19,7 +19,7 @@ const Filter = observer(() => {
   return (
     <>
       <FieldFilter />
-      <form onSubmit={filterSubmit}>
+      <form className="filter-input" onSubmit={filterSubmit}>
         { FieldStore.filter === "Quantity" ? <Quantity /> : null }
         { FieldStore.filter === "Cost" ? <Cost /> : null }
         { FieldStore.filter === "Profit" ? <Profit /> : null }
