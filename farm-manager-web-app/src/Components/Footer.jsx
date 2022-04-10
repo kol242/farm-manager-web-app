@@ -12,7 +12,7 @@ const Footer = () => {
         <a href="https://github.com/kol242">
             <BsGithub id='logo'/>  
         </a>
-        <a href="https://portfolio-website-seven-fawn.vercel.app/">
+        <a href="https://portfolio-v2-delta-two.vercel.app/">
             <BsGlobe id='logo'/> 
         </a>
         <a href="https://www.linkedin.com/in/valentino-kolinger-96236a19a/">
