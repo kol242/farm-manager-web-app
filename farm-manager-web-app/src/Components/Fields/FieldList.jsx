@@ -3,6 +3,8 @@ import React from 'react'
 import AuthService from '../../Common/Services/AuthService'
 import FieldStore from '../../Stores/FieldStore'
 import '../../Common/Style/list.scss'
+import { MdDeleteForever } from 'react-icons/md'
+import { AiFillEdit } from 'react-icons/ai'
 
 const FieldList = observer(({items}) => {
   return (
@@ -47,8 +49,8 @@ const FieldList = observer(({items}) => {
                     {item.profit} {AuthService.userData.currency}/{item.unit}
                   </p>
                   <div className="btn-wrapper">
-                    <button id="btn-delete" onClick={() => FieldStore.deleteField(item.docId)}>Delete</button>
-                    <button id="btn-update" onClick={() => FieldStore.modalHandler(item)}>Update</button>  
+                    <button id="btn-delete" onClick={() => FieldStore.deleteField(item.docId)}><MdDeleteForever className="icon"/></button>
+                    <button id="btn-update" onClick={() => FieldStore.modalHandler(item)}><AiFillEdit className="icon"/></button>  
                   </div>
                 </li>
             </ul>

@@ -28,6 +28,12 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
+    .icon {
+        color: black;
+        vertical-align: middle;
+        height: 20px;
+        width: 20px;
+    }
     #btn-delete {
         width: 60px;
         background-color: $red;

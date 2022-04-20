@@ -35,7 +35,7 @@ class ToastStore {
           case "ERROR":
             return "#d9534f";
           case "SUCCESS":
-            return "#5cb85c";
+            return "#7bbfe5";
           default:
             return;
         }

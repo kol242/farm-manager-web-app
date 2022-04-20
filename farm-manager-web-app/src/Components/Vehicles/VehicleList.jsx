@@ -2,6 +2,8 @@ import { observer } from 'mobx-react'
 import React from 'react'
 import AuthService from '../../Common/Services/AuthService'
 import VehicleStore from '../../Stores/VehicleStore'
+import { MdDeleteForever } from 'react-icons/md'
+import { AiFillEdit } from 'react-icons/ai'
 
 const VehicleList = observer(({items}) => {
   return (
@@ -26,8 +28,8 @@ const VehicleList = observer(({items}) => {
                     {item.descr}
                   </p>
                   <div className="btn-wrapper">
-                    <button id="btn-delete" onClick={() => VehicleStore.deleteVehicle(item.docId)}>Delete</button>
-                    <button id="btn-update" onClick={() => VehicleStore.modalHandler(item)}>Update</button>  
+                    <button id="btn-delete" onClick={() => VehicleStore.deleteVehicle(item.docId)}><MdDeleteForever className="icon"/></button>
+                    <button id="btn-update" onClick={() => VehicleStore.modalHandler(item)}><AiFillEdit className="icon"/></button>  
                   </div>
                 </li>
             </ul>

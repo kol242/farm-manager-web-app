@@ -3,6 +3,8 @@ import React from 'react'
 import AuthService from '../../Common/Services/AuthService'
 import CropsStore from '../../Stores/CropsStore'
 import '../../Common/Style/list.scss'
+import { MdDeleteForever } from 'react-icons/md'
+import { AiFillEdit } from 'react-icons/ai'
 
 const CropsList = observer(({items}) => {
   return (
@@ -43,8 +45,8 @@ const CropsList = observer(({items}) => {
                     {item.profit} {AuthService.userData.currency}/{item.unit}
                   </p>
                   <div className="btn-wrapper">
-                    <button id="btn-delete" onClick={() => CropsStore.deleteCrop(item.docId)}>Delete</button>
-                    <button id="btn-update" onClick={() => CropsStore.modalHandler(item)}>Update</button>  
+                    <button id="btn-delete" onClick={() => CropsStore.deleteCrop(item.docId)}><MdDeleteForever className="icon"/></button>
+                    <button id="btn-update" onClick={() => CropsStore.modalHandler(item)}><AiFillEdit className="icon"/></button>  
                   </div>
                 </li>
             </ul>

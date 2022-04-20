@@ -3,6 +3,8 @@ import React from 'react'
 import AuthService from '../../Common/Services/AuthService'
 import AnimalStore from '../../Stores/AnimalStore'
 import '../../Common/Style/list.scss'
+import { MdDeleteForever } from 'react-icons/md'
+import { AiFillEdit } from 'react-icons/ai'
 
 const AnimalsList = observer(({items}) => {
   return (
@@ -39,8 +41,8 @@ const AnimalsList = observer(({items}) => {
                     {item.profit} {AuthService.userData.currency}
                   </p>
                   <div className="btn-wrapper">
-                    <button id="btn-delete" onClick={() => AnimalStore.deleteCrop(item.docId)}>Delete</button>
-                    <button id="btn-update" onClick={() => AnimalStore.modalHandler(item)}>Update</button>  
+                    <button id="btn-delete" onClick={() => AnimalStore.deleteCrop(item.docId)}><MdDeleteForever className="icon"/></button>
+                    <button id="btn-update" onClick={() => AnimalStore.modalHandler(item)}><AiFillEdit className="icon"/></button>  
                   </div>
                 </li>
             </ul>
