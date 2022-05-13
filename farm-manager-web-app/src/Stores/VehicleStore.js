@@ -17,6 +17,8 @@ class VehicleStore {
     chartLabels = []
     chartCost = []
 
+    filterArray = ['Quantity', 'Name', 'Cost', 'Type', 'Profit']
+
     constructor() {
         makeAutoObservable(this)
     }

@@ -9,7 +9,7 @@ import Type from '../FilterInputs/Type'
 import Size from '../FilterInputs/Size'
 import Crop from '../FilterInputs/Crop'
 import Treatment from '../FilterInputs/Treatment'
-import FieldFilter from './FieldFilter'
+import FilterDropdown from '../Filters/FilterDropdown'
 
 const Filter = observer(() => {
   const filterSubmit = (e) => {
@@ -18,7 +18,7 @@ const Filter = observer(() => {
   }
   return (
     <>
-      <FieldFilter />
+      <FilterDropdown store={FieldStore} filterArray={FieldStore.filterArray} />
       <form className="filter-input" onSubmit={filterSubmit}>
         { FieldStore.filter === "Quantity" ? <Quantity /> : null }
         { FieldStore.filter === "Cost" ? <Cost /> : null }

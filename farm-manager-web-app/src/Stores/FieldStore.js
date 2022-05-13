@@ -17,6 +17,8 @@ class FieldStore {
     chartLabels = []
     chartSize = []
 
+    filterArray = ['Quantity', 'Name', 'Cost', 'Size', 'Type', 'Profit', 'Crop', 'Treatment']
+
     constructor() {
         makeAutoObservable(this)
     }

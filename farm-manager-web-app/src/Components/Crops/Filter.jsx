@@ -8,9 +8,9 @@ import Name from '../FilterInputs/Name'
 import Type from '../FilterInputs/Type'
 import Harvested from '../FilterInputs/Harvested'
 import State from '../FilterInputs/State'
-import CropFilter from './CropFilter'
 import Product from '../FilterInputs/Product'
 import '../../Common/Style/filter.scss'
+import FilterDropdown from '../Filters/FilterDropdown'
 
 const Filter = observer(() => {
   const filterSubmit = (e) => {
@@ -19,7 +19,7 @@ const Filter = observer(() => {
   }
   return (
     <>
-      <CropFilter />
+      <FilterDropdown store={CropsStore} filterArray={CropsStore.filterArray}/>
       <form className="filter-input" onSubmit={filterSubmit}>
         { CropsStore.filter === "Quantity" ? <Quantity className="filter-input"/> : null }
         { CropsStore.filter === "Cost" ? <Cost className="filter-input" /> : null }

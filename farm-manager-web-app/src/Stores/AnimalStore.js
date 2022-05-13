@@ -18,6 +18,8 @@ class AnimalStore {
     chartProfit = []
     chartCost = []
 
+    filterArray = ['Quantity', 'Name', 'Cost', 'Product', 'Type']
+
     constructor() {
         makeAutoObservable(this)
     }
