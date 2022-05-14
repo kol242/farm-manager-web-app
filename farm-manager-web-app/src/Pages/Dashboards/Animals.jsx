@@ -4,11 +4,11 @@ import AnimalStore from '../../Stores/AnimalStore'
 import Pagination from '../../Components/Pagination'
 import Filter from '../../Components/Animals/Filter'
 import AnimalForm from '../../Components/Animals/AnimalForm'
-import AnimalsList from '../../Components/Animals/AnimalsList'
 import AnimalSorter from '../../Components/Animals/AnimalSorter'
 import AnimalModal from '../../Components/Animals/AnimalModal'
 import Sidebar from '../../Components/Sidebar'
 import '../../Common/Style/home.scss'
+import ItemList from '../../Components/ItemList'
 
 const Animals = observer(() => {
 
@@ -35,7 +35,8 @@ const Animals = observer(() => {
                     </div>
                     <button id="btn-add" onClick={AnimalStore.addingChecker}>New animal</button>
                     <div className="body-content__main">
-                        { AnimalStore.Animals.length === 0 ? <p>No animals to show. Please add new animal.</p> : <AnimalsList items={currentPosts}/> }    
+                        { AnimalStore.Animals.length === 0 ? <p>No animals to show. Please add new animal.</p> : 
+                        <ItemList items={currentPosts} deleteCrop={AnimalStore.deleteAnimal} editCrop={AnimalStore.modalHandler}/> }    
                     </div>
                     <div className="body-content__foot">
                     <Pagination

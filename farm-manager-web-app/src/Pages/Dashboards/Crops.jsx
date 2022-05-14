@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import { observer } from 'mobx-react'
 import CropsStore from '../../Stores/CropsStore'
 import CropModal from '../../Components/Crops/CropModal'
-import CropsList from '../../Components/Crops/CropsList'
 import Pagination from '../../Components/Pagination'
 import CropForm from '../../Components/Crops/CropForm'
 import Filter from '../../Components/Crops/Filter'
 import CropSorter from '../../Components/Crops/CropSorter'
 import Sidebar from '../../Components/Sidebar'
 import '../../Common/Style/home.scss'
+import ItemList from '../../Components/ItemList'
 
 const Crops = observer(() => {
 
@@ -35,7 +35,8 @@ const Crops = observer(() => {
                     </div>
                     <button id="btn-add" onClick={CropsStore.addingChecker}>New crop</button>
                     <div className="body-content__main">
-                        { CropsStore.crops.length === 0 ? <p>No crops to show. Please add new crops.</p> : <CropsList items={currentPosts}/> }    
+                        { CropsStore.crops.length === 0 ? <p>No crops to show. Please add new crops.</p> : 
+                        <ItemList items={currentPosts} deleteCrop={CropsStore.deleteCrop} editCrop={CropsStore.modalHandler}/> }    
                     </div>
                     <div className="body-content__foot">
                         <Pagination

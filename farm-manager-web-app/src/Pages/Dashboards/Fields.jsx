@@ -4,11 +4,11 @@ import FieldStore from '../../Stores/FieldStore'
 import Pagination from '../../Components/Pagination'
 import Filter from '../../Components/Fields/Filter'
 import FieldForm from '../../Components/Fields/FieldForm'
-import FieldList from '../../Components/Fields/FieldList'
 import FieldSorter from '../../Components/Fields/FieldSorter'
 import FieldModal from '../../Components/Fields/FieldModal'
 import Sidebar from '../../Components/Sidebar'
 import '../../Common/Style/home.scss'
+import ItemList from '../../Components/ItemList'
 
 const Fields = observer(() => {
 
@@ -35,7 +35,8 @@ const Fields = observer(() => {
                     </div>
                     <button id="btn-add" onClick={FieldStore.addingChecker}>New field</button>
                     <div className="body-content__main">
-                        { FieldStore.Fields.length === 0 ? <p>No fields to show. Please add new field.</p> : <FieldList items={currentPosts}/> }    
+                        { FieldStore.Fields.length === 0 ? <p>No fields to show. Please add new field.</p> : 
+                        <ItemList items={currentPosts} deleteCrop={FieldStore.deleteField} editCrop={FieldStore.modalHandler}/> }    
                     </div>
                     <div className="body-content__foot">
                     <Pagination

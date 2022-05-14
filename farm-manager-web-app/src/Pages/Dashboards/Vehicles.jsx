@@ -3,12 +3,12 @@ import { observer } from 'mobx-react'
 import Pagination from '../../Components/Pagination'
 import Filter from '../../Components/Vehicles/Filter'
 import VehicleForm from '../../Components/Vehicles/VehicleForm'
-import VehicleList from '../../Components/Vehicles/VehicleList'
 import VehicleSorter from '../../Components/Vehicles/VehicleSorter'
 import VehicleModal from '../../Components/Vehicles/VehicleModal'
 import VehicleStore from '../../Stores/VehicleStore'
 import '../../Common/Style/home.scss'
 import Sidebar from '../../Components/Sidebar'
+import ItemList from '../../Components/ItemList'
 
 const Vehicles = observer(() => {
 
@@ -35,7 +35,8 @@ const Vehicles = observer(() => {
                     </div>
                     <button id="btn-add" onClick={VehicleStore.addingChecker}>New vehicle</button>
                     <div className="body-content__main">
-                        { VehicleStore.Vehicles.length === 0 ? <p>No vehicles to show. Please add new vehicle.</p> : <VehicleList items={currentPosts}/> }    
+                        { VehicleStore.Vehicles.length === 0 ? <p>No vehicles to show. Please add new vehicle.</p> : 
+                        <ItemList items={currentPosts} deleteCrop={VehicleStore.deleteVehicle} editCrop={VehicleStore.modalHandler}/> }    
                     </div>
                     <div className="body-content__foot">
                         <Pagination

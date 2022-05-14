@@ -1,12 +1,11 @@
 import { observer } from 'mobx-react'
 import React from 'react'
-import AuthService from '../../Common/Services/AuthService'
-import AnimalStore from '../../Stores/AnimalStore'
-import '../../Common/Style/list.scss'
+import AuthService from '../Common/Services/AuthService'
 import { MdDeleteForever } from 'react-icons/md'
 import { AiFillEdit } from 'react-icons/ai'
+import '../Common/Style/list.scss'
 
-const AnimalsList = observer(({items}) => {
+const ItemList = observer(({items, deleteCrop, editCrop}) => {
   return (
     <div>
         { items.map((item) => 
@@ -21,8 +20,8 @@ const AnimalsList = observer(({items}) => {
                     {item.type}
                   </p>
                   <p className="card-item">
-                    <span className="label">Quantity</span>
-                    {item.quantity} {item.unit}
+                    <span className="label">Quantity</span> 
+                    {item.quantity}
                   </p>
                   <p className="card-item">
                     <span className="label">Cost</span>
@@ -32,17 +31,9 @@ const AnimalsList = observer(({items}) => {
                     <span className="label">Description</span>
                     {item.descr}
                   </p>
-                  <p className="card-item">
-                    <span className="label">Product</span>
-                    {item.product}
-                  </p>
-                  <p className="card-item">
-                    <span className="label">Profit</span> 
-                    {item.profit} {AuthService.userData.currency}
-                  </p>
                   <div className="btn-wrapper">
-                    <button id="btn-delete" onClick={() => AnimalStore.deleteCrop(item.docId)}><MdDeleteForever className="icon"/></button>
-                    <button id="btn-update" onClick={() => AnimalStore.modalHandler(item)}><AiFillEdit className="icon"/></button>  
+                    <button id="btn-delete" onClick={() => deleteCrop(item.docId)}><MdDeleteForever className="icon"/></button>
+                    <button id="btn-update" onClick={() => editCrop(item)}><AiFillEdit className="icon"/></button>  
                   </div>
                 </li>
             </ul>
@@ -51,4 +42,4 @@ const AnimalsList = observer(({items}) => {
   )
 })
 
-export default AnimalsList
+export default ItemList
