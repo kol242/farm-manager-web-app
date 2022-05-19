@@ -1,11 +1,12 @@
 import { observer } from 'mobx-react'
 import React from 'react'
+import FilterService from '../Common/Services/FilterService'
 
-const FilterDropdown = observer(({ filterArray, store }) => {
+const FilterDropdown = observer(({ filterArray }) => {
     const filterTypeChecker = (e) => {
         e.preventDefault()
         const type = e.target.value
-        store.filterType(type)
+        FilterService.filterType(type)
     }
   return (
     <>

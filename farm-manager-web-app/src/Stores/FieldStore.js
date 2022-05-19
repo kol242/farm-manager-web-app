@@ -18,6 +18,12 @@ class FieldStore {
     chartSize = []
 
     filterArray = ['Quantity', 'Name', 'Cost', 'Size', 'Type', 'Profit', 'Crop', 'Treatment']
+    sortArray = [
+        'By name ascending','By name descending','By type ascending',
+        'By type descending','By quantity ascending','By quantity descending',
+        'By cost ascending','By cost descending','By size ascending',
+        'By size descending','By crop ascending','By crop descending'
+    ]
 
     constructor() {
         makeAutoObservable(this)

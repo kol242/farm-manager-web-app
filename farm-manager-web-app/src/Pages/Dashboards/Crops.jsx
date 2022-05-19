@@ -4,8 +4,8 @@ import CropsStore from '../../Stores/CropsStore'
 import CropModal from '../../Components/Crops/CropModal'
 import Pagination from '../../Components/Pagination'
 import CropForm from '../../Components/Crops/CropForm'
-import Filter from '../../Components/Crops/Filter'
-import CropSorter from '../../Components/Crops/CropSorter'
+import Filter from '../../Components/Filter'
+import Sorter from '../../Components/Sorter'
 import Sidebar from '../../Components/Sidebar'
 import '../../Common/Style/home.scss'
 import ItemList from '../../Components/ItemList'
@@ -29,9 +29,9 @@ const Crops = observer(() => {
             <div className="body">
                 <div className="body-content">
                     <div className="body-content__header">
-                        <CropSorter />
+                        <Sorter store={CropsStore.getSortedCrops} array={CropsStore.sortArray}/>
                         <button id="btn-primary" onClick={CropsStore.filterChecker}>Filter</button>
-                        { CropsStore.filterCheck ? <Filter /> : null }
+                        { CropsStore.filterCheck ? <Filter store={CropsStore.getFilteredCrops} array={CropsStore.filterArray}/> : null }
                     </div>
                     <button id="btn-add" onClick={CropsStore.addingChecker}>New crop</button>
                     <div className="body-content__main">

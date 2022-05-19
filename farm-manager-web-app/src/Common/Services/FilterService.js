@@ -9,8 +9,15 @@ class FilterService {
         data: ""
     }
 
+    filterName = ''
+
     constructor() {
         makeAutoObservable(this)
+    }
+
+    filterType = (type) => {
+        this.filterName = type
+        this.filterField(type)
     }
 
     filterData = (input) => {

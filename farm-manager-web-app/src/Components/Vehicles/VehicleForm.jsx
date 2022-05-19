@@ -3,6 +3,11 @@ import React from 'react'
 import CreateService from '../../Common/Services/CreateService'
 import VehicleStore from '../../Stores/VehicleStore'
 import '../../Common/Style/modal.scss'
+import Name from '../FormInputs/Name'
+import Quantity from '../FormInputs/Quantity'
+import Type from '../FormInputs/Type'
+import Description from '../FormInputs/Description'
+import Cost from '../FormInputs/Cost'
 
 const VehicleForm = observer(() => {
     function handleSubmit(e) {
@@ -30,18 +35,13 @@ const VehicleForm = observer(() => {
                 <form className="modal-form" onSubmit={handleSubmit}>
                     <div className="modal-form__inputs">
                         <div>
-                            <label htmlFor="name">Vehicle Name</label>
-                            <input type="text" name='name' />
-                            <label htmlFor="quantity">Quantity</label>
-                            <input type="number" name='quantity' />
-                            <label htmlFor="type">Vehicle type</label>
-                            <input type="text" name='type' />
+                            <Name text={'Vehicle Name'} />
+                            <Quantity />
+                            <Type />
                         </div>
                         <div>
-                            <label htmlFor="descr">Description</label>
-                            <input type="text" name='descr' />
-                            <label htmlFor="cost">Cost</label>
-                            <input type="text" name='cost' />
+                            <Description />
+                            <Cost text={'Cost'} />
                         </div>    
                     </div>
                     <button type="submit">Add Vehicle</button>

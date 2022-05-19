@@ -14,97 +14,97 @@ class SortService {
 
     sortType = (type) => {
         switch (type) {
-            case 'NameAsc':
+            case 'By name ascending':
                 this.sortObj = {
                     field: 'Name',
                     operator: 'asc'
                 }
                 break;
-            case 'NameDesc':
+            case 'By name descending':
                 this.sortObj = {
                     field: 'Name',
                     operator: 'desc'
                 }
                 break;
-            case 'TypeAsc':
+            case 'By type ascending':
                 this.sortObj = {
                     field: 'Type',
                     operator: 'asc'
                 }
                 break;
-            case 'TypeDesc':
+            case 'By type descending':
                 this.sortObj = {
                     field: 'Type',
                     operator: 'desc'
                 }
                 break;
-            case 'QuantityAsc':
+            case 'By quantity ascending':
                 this.sortObj = {
                     field: 'Quantity',
                     operator: 'asc'
                 }
                 break;
-            case 'QuantityDesc':
+            case 'By quantity descending':
                 this.sortObj = {
                     field: 'Quantity',
                     operator: 'desc'
                 }
                 break;
-            case 'ProfitAsc':
+            case 'By profit ascending':
                 this.sortObj = {
                     field: 'Profit',
                     operator: 'asc'
                 }
                 break;
-            case 'ProfitDesc':
+            case 'By profit descending':
                 this.sortObj = {
                     field: 'Profit',
                     operator: 'desc'
                 }
                 break;
-            case 'CostAsc':
+            case 'By cost ascending':
                 this.sortObj = {
                     field: 'Cost',
                     operator: 'asc'
                 }
                 break;
-            case 'CostDesc':
+            case 'By cost descending':
                 this.sortObj = {
                     field: 'Cost',
                     operator: 'desc'
                 }
                 break;
-            case 'CropAsc':
+            case 'By crop ascending':
                 this.sortObj = {
                     field: 'Crop',
                     operator: 'asc'
                 }
                 break;
-            case 'CropDesc':
+            case 'By crop descending':
                 this.sortObj = {
                     field: 'Crop',
                     operator: 'desc'
                 }
                 break;
-            case 'ProductAsc':
+            case 'By product ascending':
                 this.sortObj = {
                     field: 'Product',
                     operator: 'asc'
                 }
                 break;
-            case 'ProductDesc':
+            case 'By product descending':
                 this.sortObj = {
                     field: 'Product',
                     operator: 'desc'
                 }
                 break;
-            case 'SizeAsc':
+            case 'By size ascending':
                 this.sortObj = {
                     field: 'Size',
                     operator: 'asc'
                 }
                 break;
-            case 'SizeDesc':
+            case 'By size descending':
                 this.sortObj = {
                     field: 'Size',
                     operator: 'desc'

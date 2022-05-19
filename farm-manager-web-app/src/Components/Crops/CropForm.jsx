@@ -3,6 +3,15 @@ import React from 'react'
 import CreateService from '../../Common/Services/CreateService'
 import CropsStore from '../../Stores/CropsStore'
 import '../../Common/Style/modal.scss'
+import State from '../FormInputs/State'
+import Type from '../FormInputs/Type'
+import Description from '../FormInputs/Description'
+import Profit from '../FormInputs/Profit'
+import Cost from '../FormInputs/Cost'
+import Quantity from '../FormInputs/Quantity'
+import Name from '../FormInputs/Name'
+import WeightUnit from '../FormInputs/WeightUnit'
+import Harvested from '../FormInputs/Harvested'
 
 const CropForm = observer(() => {
     function handleSubmit(e) {
@@ -34,33 +43,17 @@ const CropForm = observer(() => {
             <form className="modal-form" onSubmit={handleSubmit}>
                 <div className="modal-form__inputs">
                     <div>
-                        <label htmlFor="name">Crop Name</label>
-                        <input type="text" name='name' />
-                        <label htmlFor="quantity">Quantity</label>
-                        <input type="number" name='quantity' />
-                        <label htmlFor="cost">Cost per kg/t/lb</label>
-                        <input type="number" name='cost' />
-                        <label htmlFor="state">Crop state</label>
-                        <input type="text" name='state' />
-                        <label htmlFor="profit">Profit</label>
-                        <input type="number" name='profit' />
+                        <Name text={'Crop Name'} />
+                        <Quantity />
+                        <Cost text={'Cost per kg/t/lb'}/>
+                        <Profit />
+                        <State />
                     </div>
                     <div>
-                        <label htmlFor="type">Crop type</label>
-                        <input type="text" name='type' />
-                        <label htmlFor="unit">Weight unit</label> 
-                        <select name="unit">
-                            <option value="kg">kg</option>
-                            <option value="t">t</option>
-                            <option value="lb">lb</option>
-                        </select>
-                        <label htmlFor="descr">Description</label>
-                        <input type="text" name='descr' />
-                        <label htmlFor="harvested">Harvested</label>
-                        <select name="harvested">
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
+                        <Type />
+                        <WeightUnit />
+                        <Description />
+                        <Harvested />
                     </div>    
                 </div>
                 <button type="submit">Add Crop</button>

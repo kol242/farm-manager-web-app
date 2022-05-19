@@ -19,6 +19,12 @@ class AnimalStore {
     chartCost = []
 
     filterArray = ['Quantity', 'Name', 'Cost', 'Product', 'Type']
+    sortArray = [
+        'By name ascending','By name descending','By type ascending',
+        'By type descending','By quantity ascending','By quantity descending',
+        'By cost ascending','By cost descending','By product ascending',
+        'By product descending','By profit ascending','By profit descending'
+    ]
 
     constructor() {
         makeAutoObservable(this)

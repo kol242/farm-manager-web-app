@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { observer } from 'mobx-react'
 import AnimalStore from '../../Stores/AnimalStore'
 import Pagination from '../../Components/Pagination'
-import Filter from '../../Components/Animals/Filter'
+import Filter from '../../Components/Filter'
 import AnimalForm from '../../Components/Animals/AnimalForm'
-import AnimalSorter from '../../Components/Animals/AnimalSorter'
+import Sorter from '../../Components/Sorter'
 import AnimalModal from '../../Components/Animals/AnimalModal'
 import Sidebar from '../../Components/Sidebar'
 import '../../Common/Style/home.scss'
@@ -29,9 +29,9 @@ const Animals = observer(() => {
             <div className="body">
                 <div className="body-content">
                     <div className="body-content__header">
-                        <AnimalSorter /> 
+                        <Sorter store={AnimalStore.getSortedAnimals} array={AnimalStore.sortArray}/> 
                         <button id="btn-primary" onClick={AnimalStore.filterChecker}>Filter</button>
-                        { AnimalStore.filterCheck ? <Filter /> : null }
+                        { AnimalStore.filterCheck ? <Filter store={AnimalStore.getFilteredAnimals} array={AnimalStore.filterArray}/> : null }
                     </div>
                     <button id="btn-add" onClick={AnimalStore.addingChecker}>New animal</button>
                     <div className="body-content__main">

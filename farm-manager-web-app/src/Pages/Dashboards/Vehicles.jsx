@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { observer } from 'mobx-react'
 import Pagination from '../../Components/Pagination'
-import Filter from '../../Components/Vehicles/Filter'
+import Filter from '../../Components/Filter'
 import VehicleForm from '../../Components/Vehicles/VehicleForm'
-import VehicleSorter from '../../Components/Vehicles/VehicleSorter'
+import Sorter from '../../Components/Sorter'
 import VehicleModal from '../../Components/Vehicles/VehicleModal'
 import VehicleStore from '../../Stores/VehicleStore'
 import '../../Common/Style/home.scss'
@@ -29,9 +29,9 @@ const Vehicles = observer(() => {
             <div className="body">
                 <div className="body-content">
                     <div className="body-content__header">
-                        <VehicleSorter />
+                        <Sorter store={VehicleStore.getSortedVehicles} array={VehicleStore.sortArray}/> 
                         <button id="btn-primary" onClick={VehicleStore.filterChecker}>Filter</button>
-                        { VehicleStore.filterCheck ? <Filter /> : null }
+                        { VehicleStore.filterCheck ? <Filter store={VehicleStore.getFilteredVehicles} array={VehicleStore.filterArray}/> : null }
                     </div>
                     <button id="btn-add" onClick={VehicleStore.addingChecker}>New vehicle</button>
                     <div className="body-content__main">
