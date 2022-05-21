@@ -1,10 +1,6 @@
 import { runInAction, makeAutoObservable } from 'mobx'
 import AuthService from '../Common/Services/AuthService'
-import DeleteService from '../Common/Services/DeleteService'
-import FilterService from '../Common/Services/FilterService'
-import ReadService from '../Common/Services/ReadService'
-import SortService from '../Common/Services/SortService'
-import UpdateService from '../Common/Services/UpdateService'
+import VehicleService from '../Common/Services/VehicleService'
 
 class VehicleStore {
     Vehicles = []
@@ -39,7 +35,7 @@ class VehicleStore {
 
     filterType = (type) => {
         this.filter = type
-        FilterService.filterField(type)
+        VehicleService.filterField(type)
     }
 
     filterChecker = () => {
@@ -69,35 +65,35 @@ class VehicleStore {
     }
 
     getVehicles = async () => {
-        const documentSnapshot = await ReadService.getVehicles()
+        const documentSnapshot = await VehicleService.getVehicles()
         runInAction(() => {
             this.pushVehicles(documentSnapshot)
         })
     }
 
     getFilteredVehicles = async () => {
-        const documentSnapshot = await FilterService.vehiclesFilter()
+        const documentSnapshot = await VehicleService.vehiclesFilter()
         runInAction(() => {
             this.pushVehicles(documentSnapshot)
         })
     }
 
     getSortedVehicles = async () => {
-        const documentSnapshot = await SortService.vehicleSorter() 
+        const documentSnapshot = await VehicleService.vehicleSorter() 
         runInAction(() => {
             this.pushVehicles(documentSnapshot)
         })
     }
 
     deleteVehicle = async (id) => {
-        await DeleteService.deleteVehicle(id)
+        await VehicleService.deleteVehicle(id)
         runInAction(() => {
             this.getVehicles()    
         })
     }
 
     updateVehicle = async (payload) => {
-        UpdateService.updateVehicle(payload, this.Vehicle.docId)
+        VehicleService.updateVehicle(payload, this.Vehicle.docId)
         this.modal = false
         this.getVehicles()
     }

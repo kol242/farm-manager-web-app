@@ -15,6 +15,7 @@ class AuthService {
     currentUser
     loggedIn = false
     signupChecker = false
+    afterSignup = false
     currencies = []
     countries = []
 
@@ -29,13 +30,14 @@ class AuthService {
             const collectionRef = collection(db, "Users")
             await addDoc(collectionRef, {
                 username: userData.username,
-                farmName: userData.farm,
+                farmName: userData.farmName,
                 country: userData.country,
                 email: userData.email,
                 currency: userData.currency
             })
-            createUserWithEmailAndPassword(auth, userData.email, userData.password)
+            await createUserWithEmailAndPassword(auth, userData.email, userData.password)
             runInAction(() => {
+                this.login(userData)
                 ToastStore.notificationType({
                     type: "SUCCESS",
                     title: "Success!",
@@ -88,6 +90,7 @@ class AuthService {
             runInAction(() => {
                 this.getUserData(userData.email)
                 this.loggedIn = true
+                this.afterSignup = false
                 CropsStore.getCrops()
                 AnimalStore.getAnimals()
                 FieldStore.getFields()

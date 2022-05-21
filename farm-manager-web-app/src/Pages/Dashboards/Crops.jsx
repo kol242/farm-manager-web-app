@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { observer } from 'mobx-react'
 import CropsStore from '../../Stores/CropsStore'
-import CropModal from '../../Components/Crops/CropModal'
+import CropModal from '../../Components/Entities/Crops/CropModal'
 import Pagination from '../../Components/Pagination'
-import CropForm from '../../Components/Crops/CropForm'
 import Filter from '../../Components/Filter'
 import Sorter from '../../Components/Sorter'
 import Sidebar from '../../Components/Sidebar'
 import '../../Common/Style/home.scss'
 import ItemList from '../../Components/ItemList'
+import Modal from '../../Components/Modal'
 
 const Crops = observer(() => {
 
@@ -24,7 +24,7 @@ const Crops = observer(() => {
     return (
         <div className="content-home">
             { CropsStore.modal ? <CropModal /> : null }
-            { CropsStore.addingCheck ? <CropForm /> : null }
+            { CropsStore.addingCheck ? <Modal item='Crops' store={CropsStore} /> : null }
             <Sidebar />
             <div className="body">
                 <div className="body-content">
@@ -40,10 +40,10 @@ const Crops = observer(() => {
                     </div>
                     <div className="body-content__foot">
                         <Pagination
-                        postsPerPage={postsPerPage}
-                        totalPosts={CropsStore.crops.length}
-                        paginate={paginate}
-                    />    
+                            postsPerPage={postsPerPage}
+                            totalPosts={CropsStore.crops.length}
+                            paginate={paginate}
+                        />    
                     </div>
                 </div>
             </div>

@@ -1,10 +1,6 @@
 import { runInAction, makeAutoObservable } from 'mobx'
 import AuthService from '../Common/Services/AuthService'
-import DeleteService from '../Common/Services/DeleteService'
-import FilterService from '../Common/Services/FilterService'
-import ReadService from '../Common/Services/ReadService'
-import SortService from '../Common/Services/SortService'
-import UpdateService from '../Common/Services/UpdateService'
+import FieldService from '../Common/Services/FieldService'
 
 class FieldStore {
     Fields = []
@@ -40,7 +36,7 @@ class FieldStore {
 
     filterType = (type) => {
         this.filter = type
-        FilterService.filterField(type)
+        FieldService.filterField(type)
     }
 
     filterChecker = () => {
@@ -74,35 +70,35 @@ class FieldStore {
     }
 
     getFields = async () => {
-        const documentSnapshot = await ReadService.getFields()
+        const documentSnapshot = await FieldService.getFields()
         runInAction(() => {
             this.pushFields(documentSnapshot)
         })
     }
 
     getFilteredFields = async () => {
-        const documentSnapshot = await FilterService.fieldsFilter()
+        const documentSnapshot = await FieldService.fieldsFilter()
         runInAction(() => {
             this.pushFields(documentSnapshot)
         })
     }
 
     getSortedFields = async () => {
-        const documentSnapshot = await SortService.fieldSorter() 
+        const documentSnapshot = await FieldService.fieldSorter() 
         runInAction(() => {
             this.pushFields(documentSnapshot)
         })
     }
 
     deleteField = async (id) => {
-        await DeleteService.deleteField(id)
+        await FieldService.deleteField(id)
         runInAction(() => {
             this.getFields()    
         })
     }
 
     updateField = async (payload) => {
-        UpdateService.updateField(payload, this.Field.docId)
+        FieldService.updateField(payload, this.Field.docId)
         this.modal = false
         this.getFields()
     }

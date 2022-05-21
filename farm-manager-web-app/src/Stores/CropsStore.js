@@ -1,10 +1,6 @@
 import { runInAction, makeAutoObservable } from 'mobx'
 import AuthService from '../Common/Services/AuthService'
-import DeleteService from '../Common/Services/DeleteService'
-import FilterService from '../Common/Services/FilterService'
-import ReadService from '../Common/Services/ReadService'
-import SortService from '../Common/Services/SortService'
-import UpdateService from '../Common/Services/UpdateService'
+import CropService from '../Common/Services/CropService'
 
 class CropsStore {
     crops = []
@@ -37,7 +33,7 @@ class CropsStore {
 
     filterType = (type) => {
         this.filter = type
-        FilterService.filterField(type)
+        CropService.filterField(type)
     }
 
     filterChecker = () => {
@@ -78,35 +74,35 @@ class CropsStore {
     }
 
     getCrops = async () => {
-        const documentSnapshot = await ReadService.getCrops()
+        const documentSnapshot = await CropService.getCrops()
         runInAction(() => {
             this.pushCrops(documentSnapshot)
         })
     }
 
     getFilteredCrops = async () => {
-        const documentSnapshot = await FilterService.cropsFilter()
+        const documentSnapshot = await CropService.cropsFilter()
         runInAction(() => {
             this.pushCrops(documentSnapshot)
         })
     }
 
     getSortedCrops = async () => {
-        const documentSnapshot = await SortService.cropSorter() 
+        const documentSnapshot = await CropService.cropSorter() 
         runInAction(() => {
             this.pushCrops(documentSnapshot)
         })
     }
 
     deleteCrop = async (id) => {
-        await DeleteService.deleteCrop(id)
+        await CropService.deleteCrop(id)
         runInAction(() => {
             this.getCrops()    
         })
     }
 
     updateCrop = async (payload) => {
-        UpdateService.updateCrop(payload, this.crop.docId)
+        CropService.updateCrop(payload, this.crop.docId)
         this.modal = false
         this.getCrops()
     }

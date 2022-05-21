@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import React from 'react'
 import '../Common/Style/pagination.scss'
 
-const Pagination = observer(({ postsPerPage, totalPosts, paginate }) => {
+const Pagination = observer(({ postsPerPage, totalPosts, store }) => {
     
     const pageNumbers = [];
 
@@ -15,7 +15,7 @@ const Pagination = observer(({ postsPerPage, totalPosts, paginate }) => {
       <ul className='pagination-nav__item'>
         {pageNumbers.map(number => (
           <li key={number}>
-            <button className="pagination-nav__button" onClick={() => paginate(number)}>
+            <button className="pagination-nav__button" onClick={() => store.paginate(number)}>
               {number}
             </button>
           </li>

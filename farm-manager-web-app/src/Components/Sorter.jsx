@@ -1,10 +1,10 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import SortService from '../Common/Services/SortService'
+import FilterService from '../Common/Services/FilterService'
 
 const VehicleSorter = observer(({ array, store }) => {
     const field = (e) => {
-        SortService.sortType(e.target.value)
+        FilterService.sortType(e.target.value)
     }
 
     return (

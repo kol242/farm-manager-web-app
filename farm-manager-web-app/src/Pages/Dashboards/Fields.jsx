@@ -3,12 +3,12 @@ import { observer } from 'mobx-react'
 import FieldStore from '../../Stores/FieldStore'
 import Pagination from '../../Components/Pagination'
 import Filter from '../../Components/Filter'
-import FieldForm from '../../Components/Fields/FieldForm'
 import Sorter from '../../Components/Sorter'
-import FieldModal from '../../Components/Fields/FieldModal'
+import FieldModal from '../../Components/Entities/Fields/FieldModal'
 import Sidebar from '../../Components/Sidebar'
 import '../../Common/Style/home.scss'
 import ItemList from '../../Components/ItemList'
+import Modal from '../../Components/Modal'
 
 const Fields = observer(() => {
 
@@ -24,7 +24,7 @@ const Fields = observer(() => {
     return (
         <div className="content-home">
             { FieldStore.modal ? <FieldModal /> : null }
-            { FieldStore.addingCheck ? <FieldForm /> : null }
+            { FieldStore.addingCheck ? <Modal item='Fields' store={FieldStore} /> : null }
             <Sidebar />
             <div className="body">
                 <div className="body-content">

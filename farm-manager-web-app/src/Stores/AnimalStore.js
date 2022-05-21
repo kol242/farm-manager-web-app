@@ -1,10 +1,6 @@
 import { runInAction, makeAutoObservable } from 'mobx'
+import AnimalService from '../Common/Services/AnimalService'
 import AuthService from '../Common/Services/AuthService'
-import DeleteService from '../Common/Services/DeleteService'
-import FilterService from '../Common/Services/FilterService'
-import ReadService from '../Common/Services/ReadService'
-import SortService from '../Common/Services/SortService'
-import UpdateService from '../Common/Services/UpdateService'
 
 class AnimalStore {
     Animals = []
@@ -26,8 +22,24 @@ class AnimalStore {
         'By product descending','By profit ascending','By profit descending'
     ]
 
+    currentPage
+    postsPerPage 
+    indexOfFirstPost 
+    indexOfLastPost
+    currentPosts 
+
     constructor() {
         makeAutoObservable(this)
+        console.log(this.Animals)
+        this.currentPage = 1
+        this.postsPerPage = 5
+        this.indexOfFirstPost = this.indexOfLastPost - this.postsPerPage
+        this.indexOfLastPost = this.currentPage * this.postsPerPage
+        this.currentPosts = this.Animals.slice(this.indexOfFirstPost, this.indexOfLastPost)
+    }
+
+    paginate = (pageNumber) => {
+        return this.currentPage = pageNumber
     }
 
     addingChecker = () => {
@@ -41,7 +53,7 @@ class AnimalStore {
 
     filterType = (type) => {
         this.filter = type
-        FilterService.filterField(type)
+        AnimalService.filterField(type)
     }
 
     filterChecker = () => {
@@ -76,35 +88,35 @@ class AnimalStore {
     }
 
     getAnimals = async () => {
-        const documentSnapshot = await ReadService.getAnimals()
+        const documentSnapshot = await AnimalService.getAnimals()
         runInAction(() => {
             this.pushAnimals(documentSnapshot)
         })
     }
 
     getFilteredAnimals = async () => {
-        const documentSnapshot = await FilterService.animalsFilter()
+        const documentSnapshot = await AnimalService.animalsFilter()
         runInAction(() => {
             this.pushAnimals(documentSnapshot)
         })
     }
 
     getSortedAnimals = async () => {
-        const documentSnapshot = await SortService.animalSorter() 
+        const documentSnapshot = await AnimalService.animalSorter() 
         runInAction(() => {
             this.pushAnimals(documentSnapshot)
         })
     }
 
     deleteAnimal = async (id) => {
-        await DeleteService.deleteAnimal(id)
+        await AnimalService.deleteAnimal(id)
         runInAction(() => {
             this.getAnimals()    
         })
     }
 
     updateAnimal = async (payload) => {
-        UpdateService.updateAnimal(payload, this.Animal.docId)
+        AnimalService.updateAnimal(payload, this.Animal.docId)
         this.modal = false
         this.getAnimals()
     }

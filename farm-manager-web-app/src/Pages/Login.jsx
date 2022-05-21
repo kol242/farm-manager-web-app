@@ -1,41 +1,25 @@
+import { observer } from 'mobx-react'
 import React from 'react'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import AuthService from '../Common/Services/AuthService'
 import '../Common/Style/login.scss'
+import LoginFormClass from '../Components/Login/form.class'
+import LoginForm from '../Components/Login/LoginForm'
 
-const Login = () => {
-  const history = useNavigate()
-  async function handleSubmit(e) {
-    e.preventDefault()
-    const userData = {
-      email: e.target.email.value,
-      password: e.target.password.value,
-    }
-    await AuthService.login(userData)
-    history("/home")
-  }
+const form = new LoginFormClass()
 
-  return AuthService.loggedIn === true ? <Navigate to="/dashboard" /> : (
+const Login = observer(() => {
+  return AuthService.loggedIn === true ? <Navigate to="/home" /> : (
     <div className="content-wrapper">
       <div className="content">
         <h2>Log In</h2>
-        <form onSubmit={handleSubmit} className="form-content">
-          <div className="form-input">
-            <label htmlFor="email">Email</label>
-            <input type="text" name="email"/>
-          </div>
-          <div className="form-input">
-            <label htmlFor="password">Password</label>
-            <input type="password" name="password" />
-          </div>
-          <button type='submit'>Log In</button>
-        </form>
+        <LoginForm form={form} />
         <div>
             Need an account? <Link to="/signup">Sign Up</Link>
         </div>   
       </div>
     </div>
   )
-}
+})
 
 export default Login
