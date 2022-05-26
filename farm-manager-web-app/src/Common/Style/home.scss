@@ -122,6 +122,16 @@
             }
             .body-content__foot {
                 align-self: center;
+                .btn-scroll {
+                    border: none;
+                    font-size: 16px;
+                    font-family: $app-font;
+                    background: transparent;
+                    cursor: pointer;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
             }
         }
     }

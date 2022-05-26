@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, getDocs, orderBy, query, updateDoc, where } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, documentId, endBefore, FieldPath, getDocs, limit, limitToLast, orderBy, query, startAfter, updateDoc, where } from 'firebase/firestore'
 import { makeAutoObservable } from 'mobx'
 import AnimalStore from '../../Stores/AnimalStore'
 import ToastStore from '../../Stores/ToastStore'
@@ -13,7 +13,12 @@ class AnimalService {
 
     getAnimals = async () => {
         try {
-            const ref = query(collection(db, "Animals")) 
+            const user = await AuthService.currentUser.uid
+            const ref = query(
+            collection(db, "Animals"), 
+            limit(5),
+            where("User", "==", user),
+            orderBy("Name")) 
             return getDocs(ref)
         } catch (e) {
             ToastStore.notificationType({
@@ -23,6 +28,15 @@ class AnimalService {
             })
             console.error(e)
         }
+    }
+
+    nextItems = async (lastData) => {
+        const user = await AuthService.currentUser.uid
+        const ref = query(collection(db, "Animals"), 
+        where("User", "==", user),
+        orderBy("Name"), 
+        startAfter(lastData), limit(5))
+        return getDocs(ref)   
     }
 
     newAnimal = async (payload) => {
@@ -98,16 +112,49 @@ class AnimalService {
             })
         }
     }
-
-    animalsFilter = async () => {
-        const ref = query(collection(db, "Animals"), 
-        where(FilterService.filterObj.field, FilterService.filterObj.operator, FilterService.filterObj.data))
-        return getDocs(ref)
-    }
     
     animalSorter = async () => {
         const ref = query(collection(db, "Animals"), 
         orderBy(FilterService.sortObj.field, FilterService.sortObj.operator))
+        return getDocs(ref)
+    }
+
+    nextPage = (lastData, sortingType) => {
+        const ref = query(collection(db, "Animals"), 
+        orderBy(sortingType.field, sortingType.operator), 
+        startAfter(lastData), limit(7))
+        return getDocs(ref)   
+    }
+
+    prevPage = (firstData, sortingType) => {
+        const ref = query(collection(db, "Animals"), 
+        orderBy(sortingType.field, sortingType.operator), 
+        endBefore(firstData), 
+        limitToLast(7))
+        return getDocs(ref)
+    }
+
+    filterGet = (filterData) => {
+        const ref = query(collection(db, "Animals"), 
+        where(filterData.field, filterData.operator, filterData.data), 
+        limit(7))
+        return getDocs(ref)
+    }
+
+    filterNextPage = (filterData, lastData) => {
+        const ref = query(collection(db, "Animals"), 
+        where(filterData.field, filterData.operator, filterData.data), 
+        startAfter(lastData), 
+        limit(7))
+        return getDocs(ref)   
+    }
+
+    filterPrevPage = (filterData, firstData) => {
+        const ref = query(collection(db, "Animals"), 
+        where(filterData.field, filterData.operator, filterData.data), 
+        orderBy(documentId(FieldPath)), 
+        endBefore(firstData), 
+        limitToLast(7))
         return getDocs(ref)
     }
 

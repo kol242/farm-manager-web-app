@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, getDocs, orderBy, query, updateDoc, where } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, getDocs, limit, orderBy, query, startAfter, updateDoc, where } from 'firebase/firestore'
 import { makeAutoObservable } from 'mobx'
 import FieldStore from '../../Stores/FieldStore'
 import ToastStore from '../../Stores/ToastStore'
@@ -13,7 +13,12 @@ class FieldService {
 
     getFields = async () => {
         try {
-            const ref = query(collection(db, "Fields")) 
+            const user = await AuthService.currentUser.uid
+            const ref = query(
+                collection(db, "Fields"), 
+                where("User", "==", user), 
+                limit(5), 
+                orderBy("Name")) 
             return getDocs(ref)
         } catch (e) {
             ToastStore.notificationType({
@@ -23,6 +28,15 @@ class FieldService {
             })
             console.error(e)
         }
+    }
+
+    nextItems = async (lastData) => {
+        const user = await AuthService.currentUser.uid
+        const ref = query(collection(db, "Fields"), 
+        where("User", "==", user),
+        orderBy("Name"), 
+        startAfter(lastData), limit(5))
+        return getDocs(ref)   
     }
 
     newField = async (payload) => {
@@ -115,6 +129,8 @@ class FieldService {
         orderBy(FilterService.sortObj.field, FilterService.sortObj.operator))
         return getDocs(ref)
     }
+
+
 }
 
 export default new FieldService()

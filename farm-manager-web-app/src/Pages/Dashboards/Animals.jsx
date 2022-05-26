@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import AnimalStore from '../../Stores/AnimalStore'
-import Pagination from '../../Components/Pagination'
+// import Pagination from '../../Components/Pagination'
 import Filter from '../../Components/Filter'
 import Sorter from '../../Components/Sorter'
 import AnimalModal from '../../Components/Entities/Animals/AnimalModal'
@@ -9,8 +9,10 @@ import '../../Common/Style/home.scss'
 import ItemList from '../../Components/ItemList'
 import Modal from '../../Components/Modal'
 import { observer } from 'mobx-react'
+import PaginateScroll from '../../Components/PaginateScroll'
 
 const Animals = observer(() => {
+
     return (
         <div className="content-home">
             { AnimalStore.modal ? <AnimalModal /> : null }
@@ -19,7 +21,7 @@ const Animals = observer(() => {
             <div className="body">
                 <div className="body-content">
                     <div className="body-content__header">
-                        <Sorter store={AnimalStore.getSortedAnimals} array={AnimalStore.sortArray}/> 
+                        <Sorter store={AnimalStore}/> 
                         <button id="btn-primary" onClick={AnimalStore.filterChecker}>Filter</button>
                         { AnimalStore.filterCheck ? <Filter store={AnimalStore.getFilteredAnimals} array={AnimalStore.filterArray}/> : null }
                     </div>
@@ -29,11 +31,7 @@ const Animals = observer(() => {
                         <ItemList items={AnimalStore.Animals} deleteCrop={AnimalStore.deleteAnimal} editCrop={AnimalStore.modalHandler}/> }    
                     </div>
                     <div className="body-content__foot">
-                    <Pagination
-                        postsPerPage={AnimalStore.postsPerPage}
-                        totalPosts={AnimalStore.Animals.length}
-                        store={AnimalStore}
-                    /> 
+                        { AnimalStore.Animals.length > 0 ? <PaginateScroll store={AnimalStore}/> : null }
                     </div>
                 </div>
             </div>

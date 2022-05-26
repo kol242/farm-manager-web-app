@@ -1,6 +1,6 @@
 import { runInAction, makeAutoObservable } from 'mobx'
 import AnimalService from '../Common/Services/AnimalService'
-import AuthService from '../Common/Services/AuthService'
+import FilterService from '../Common/Services/FilterService'
 
 class AnimalStore {
     Animals = []
@@ -14,6 +14,9 @@ class AnimalStore {
     chartProfit = []
     chartCost = []
 
+    lastVisible
+    itemsLenght = 5
+
     filterArray = ['Quantity', 'Name', 'Cost', 'Product', 'Type']
     sortArray = [
         'By name ascending','By name descending','By type ascending',
@@ -22,24 +25,8 @@ class AnimalStore {
         'By product descending','By profit ascending','By profit descending'
     ]
 
-    currentPage
-    postsPerPage 
-    indexOfFirstPost 
-    indexOfLastPost
-    currentPosts 
-
     constructor() {
         makeAutoObservable(this)
-        console.log(this.Animals)
-        this.currentPage = 1
-        this.postsPerPage = 5
-        this.indexOfFirstPost = this.indexOfLastPost - this.postsPerPage
-        this.indexOfLastPost = this.currentPage * this.postsPerPage
-        this.currentPosts = this.Animals.slice(this.indexOfFirstPost, this.indexOfLastPost)
-    }
-
-    paginate = (pageNumber) => {
-        return this.currentPage = pageNumber
     }
 
     addingChecker = () => {
@@ -61,9 +48,9 @@ class AnimalStore {
     }
 
     pushAnimals = async (documentSnapshot) => {
-        const filtered = await documentSnapshot.docs.filter(doc => doc.data().User === AuthService.currentUser.uid)
+        const data = await documentSnapshot.docs
         runInAction(() => {
-            this.Animals = filtered.map(doc => {
+            this.Animals = data.map(doc => {
                 return {
                     docId: doc.id,
                     name: doc.data().Name,
@@ -75,33 +62,85 @@ class AnimalStore {
                     profit: doc.data().Profit
                 }
             }) 
-            this.chartLabels = filtered.map(doc => {
+            this.lastVisible = data[data.length - 1]
+            this.chartLabels = data.map(doc => {
                 return doc.data().Name
             })
-            this.chartProfit = filtered.map(doc => {
+            this.chartProfit = data.map(doc => {
                 return doc.data().Profit
             })
-            this.chartCost = filtered.map(doc => {
+            this.chartCost = data.map(doc => {
                 return doc.data().Cost
             })
+        })
+    }
+
+    nextItems = async () => {
+        const documentSnapshot = await AnimalService.nextItems(this.lastVisible)
+        runInAction(() => {
+            const data = documentSnapshot.docs
+            data.map(doc => {
+                return this.Animals.push(
+                    {
+                        docId: doc.id,
+                        name: doc.data().Name,
+                        type: doc.data().Type,
+                        quantity: doc.data().Quantity,
+                        cost: doc.data().Cost,
+                        descr: doc.data().Description,
+                        product: doc.data().Product,
+                        profit: doc.data().Profit
+                    }   
+                ) 
+            })
+            this.lastVisible = data[data.length - 1]
+            this.itemsLenght = documentSnapshot.docs.length
         })
     }
 
     getAnimals = async () => {
         const documentSnapshot = await AnimalService.getAnimals()
         runInAction(() => {
+            this.itemsLenght = 5
             this.pushAnimals(documentSnapshot)
         })
     }
 
     getFilteredAnimals = async () => {
-        const documentSnapshot = await AnimalService.animalsFilter()
+        const documentSnapshot = await AnimalService.filterGet(FilterService.filterObj)
         runInAction(() => {
             this.pushAnimals(documentSnapshot)
         })
     }
 
-    getSortedAnimals = async () => {
+    prevPage = async () => {
+        const documentSnapshot = await ( 
+            this.filterCheck ? AnimalService.filterPrevPage(FilterService.filterObj, this.firstVisible) 
+            : AnimalService.prevPage(this.firstVisible, FilterService.sortObj))
+        runInAction(() => {
+            this.prevLength = documentSnapshot.docs.length
+            if(this.nextLength < 7) {
+                this.nextLength = 7
+            }
+            this.pushAnimals(documentSnapshot)
+        })
+    }
+
+    nextPage = async () => {
+        const documentSnapshot = await ( 
+            this.filterCheck ? AnimalService.filterNextPage(FilterService.filterObj, this.lastVisible) 
+            : AnimalService.nextPage(this.lastVisible, FilterService.sortObj))
+        runInAction(() => {
+            this.nextLength = documentSnapshot.docs.length
+            if(this.prevLength < 7) {
+                this.prevLength = 7
+            }
+            this.pushAnimals(documentSnapshot)
+            console.log(this.Animals)
+        })
+    }
+
+    getSortedItems = async () => {
         const documentSnapshot = await AnimalService.animalSorter() 
         runInAction(() => {
             this.pushAnimals(documentSnapshot)

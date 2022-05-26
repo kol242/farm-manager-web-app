@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, getDocs, orderBy, query, updateDoc, where } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, documentId, endBefore, FieldPath, getDocs, limit, limitToLast, orderBy, query, startAfter, updateDoc, where } from 'firebase/firestore'
 import { makeAutoObservable } from 'mobx'
 import CropsStore from '../../Stores/CropsStore'
 import ToastStore from '../../Stores/ToastStore'
@@ -33,7 +33,11 @@ class CropService {
 
     getCrops = async () => {
         try {
-            const ref = query(collection(db, "Crops")) 
+            const user = await AuthService.currentUser.uid
+            const ref = query(collection(db, "Crops"),
+            limit(5),
+            where("User", "==", user),
+            orderBy("Name")) 
             return getDocs(ref)
         } catch (e) {
             ToastStore.notificationType({
@@ -43,6 +47,15 @@ class CropService {
             })
             console.error(e)
         }
+    }
+
+    nextItems = async (lastData) => {
+        const user = await AuthService.currentUser.uid
+        const ref = query(collection(db, "Crops"), 
+        where("User", "==", user),
+        orderBy("Name"), 
+        startAfter(lastData), limit(5))
+        return getDocs(ref)   
     }
 
     newCrop = async (payload) => {
@@ -133,6 +146,46 @@ class CropService {
         orderBy(FilterService.sortObj.field, FilterService.sortObj.operator))
         return getDocs(ref)
     }
+
+    nextPage = (lastData, sortingType) => {
+        const ref = query(collection(db, "Crops"), 
+        orderBy(sortingType.field, sortingType.operator), 
+        startAfter(lastData), limit(7))
+        return getDocs(ref)   
+    }
+
+    prevPage = (firstData, sortingType) => {
+        const ref = query(collection(db, "Crops"), 
+        orderBy(sortingType.field, sortingType.operator), 
+        endBefore(firstData), 
+        limitToLast(7))
+        return getDocs(ref)
+    }
+
+    filterGet = (filterData) => {
+        const ref = query(collection(db, "Crops"), 
+        where(filterData.field, filterData.operator, filterData.data), 
+        limit(7))
+        return getDocs(ref)
+    }
+
+    filterNextPage = (filterData, lastData) => {
+        const ref = query(collection(db, "Crops"), 
+        where(filterData.field, filterData.operator, filterData.data), 
+        startAfter(lastData), 
+        limit(7))
+        return getDocs(ref)   
+    }
+
+    filterPrevPage = (filterData, firstData) => {
+        const ref = query(collection(db, "Crops"), 
+        where(filterData.field, filterData.operator, filterData.data), 
+        orderBy(documentId(FieldPath)), 
+        endBefore(firstData), 
+        limitToLast(7))
+        return getDocs(ref)
+    }
+
 }
 
 export default new CropService()

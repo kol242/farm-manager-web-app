@@ -18,7 +18,7 @@ function App() {
       <Router>
         <Navbar className="navbar"/>
         <Routes>
-          <Route path="/" element={<LandingPage />}/>
+          <Route exact path="/" element={<LandingPage />}/>
           <Route path="/login" element={<Login className="body-content" />} />
           <Route path="/signup" element={<Signup className="body-content" />} />
           <Route exact path="/home" element={<PrivateRoute/>}>
@@ -27,8 +27,8 @@ function App() {
           <Route exact path="/crops" element={<PrivateRoute/>}>
             <Route exact path= "/crops" element={<Crops className="body-content"/>}/>  
           </Route>
-          <Route exact path="/animals" element={<PrivateRoute/>}>
-            <Route exact path= "/animals" element={<Animals className="body-content"/>}/>  
+          <Route path="/animals" element={<PrivateRoute/>}>
+            <Route path= "/animals" element={<Animals className="body-content"/>}/>  
           </Route>
           <Route exact path="/vehicles" element={<PrivateRoute/>}>
             <Route exact path= "/vehicles" element={<Vehicles className="body-content"/>}/>  

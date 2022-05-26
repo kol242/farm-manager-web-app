@@ -10,11 +10,11 @@ const VehicleSorter = observer(({ array, store }) => {
     return (
         <>
             <select defaultValue={'default'} name="sorter" onChange={field}>
-                { array.map((item) => (
+                { store.sortArray.map((item) => (
                     <option value={item}>{item}</option>
                 )) }
             </select>
-            <button id="btn-primary" onClick={store}>Sort</button>
+            <button id="btn-primary" onClick={() => store.getSortedItems()}>Sort</button>
         </>
     )
 })

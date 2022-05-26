@@ -1,5 +1,4 @@
 import { runInAction, makeAutoObservable } from 'mobx'
-import AuthService from '../Common/Services/AuthService'
 import FieldService from '../Common/Services/FieldService'
 
 class FieldStore {
@@ -20,6 +19,9 @@ class FieldStore {
         'By cost ascending','By cost descending','By size ascending',
         'By size descending','By crop ascending','By crop descending'
     ]
+
+    lastVisible
+    itemsLenght = 6
 
     constructor() {
         makeAutoObservable(this)
@@ -44,7 +46,7 @@ class FieldStore {
     }
 
     pushFields = async (documentSnapshot) => {
-        const filtered = await documentSnapshot.docs.filter(doc => doc.data().User === AuthService.currentUser.uid)
+        const filtered = await documentSnapshot.docs
         runInAction(() => {
             this.Fields = filtered.map(doc => {
                 return {
@@ -59,7 +61,8 @@ class FieldStore {
                     treatment: doc.data().Treatment,
                     unit: doc.data().Unit
                 }
-            }) 
+            })
+            this.lastVisible = filtered[filtered.length - 1]
             this.chartLabels = filtered.map(doc => {
                 return doc.data().Name
             })
@@ -69,9 +72,35 @@ class FieldStore {
         })
     }
 
+    nextItems = async () => {
+        const documentSnapshot = await FieldService.nextItems(this.lastVisible)
+        runInAction(() => {
+            const data = documentSnapshot.docs
+            data.map(doc => {
+                return this.Fields.push(
+                    {
+                        docId: doc.id,
+                        name: doc.data().Name,
+                        type: doc.data().Type,
+                        quantity: doc.data().Quantity,
+                        cost: doc.data().Cost,
+                        descr: doc.data().Description,
+                        size: doc.data().Size,
+                        crop: doc.data().Crop,
+                        treatment: doc.data().Treatment,
+                        unit: doc.data().Unit
+                    }   
+                ) 
+            })
+            this.lastVisible = data[data.length - 1]
+            this.itemsLenght = documentSnapshot.docs.length
+        })
+    }
+
     getFields = async () => {
         const documentSnapshot = await FieldService.getFields()
         runInAction(() => {
+            this.itemsLenght = 5
             this.pushFields(documentSnapshot)
         })
     }
@@ -83,7 +112,7 @@ class FieldStore {
         })
     }
 
-    getSortedFields = async () => {
+    getSortedItems = async () => {
         const documentSnapshot = await FieldService.fieldSorter() 
         runInAction(() => {
             this.pushFields(documentSnapshot)

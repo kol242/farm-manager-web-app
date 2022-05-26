@@ -7,13 +7,14 @@ import VehicleForm from '../Components/Entities/Vehicles/VehicleForm'
 import AddCropForm from './Entities/Crops/form.class'
 import AddFieldForm from './Entities/Fields/form.class'
 import AddVehicleForm from './Entities/Vehicles/form.class'
+import { observer } from 'mobx-react'
 
 const Animalsform = new AddAnimalForm()
 const CropsForm = new AddCropForm()
 const FieldsForm = new AddFieldForm()
 const VehiclesForm = new AddVehicleForm()
 
-const Modal = ({ item, store }) => {
+const Modal = observer(({ item, store }) => {
   return (
     <>
         <div className="modal">
@@ -33,6 +34,6 @@ const Modal = ({ item, store }) => {
         </div>
     </>
   )
-}
+})
 
 export default Modal

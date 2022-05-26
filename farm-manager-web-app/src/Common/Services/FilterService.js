@@ -10,8 +10,8 @@ class FilterService {
     filterName = ''
 
     sortObj = {
-        field: "",
-        operator: ""
+        field: "Name",
+        operator: "asc"
     }
 
     constructor() {

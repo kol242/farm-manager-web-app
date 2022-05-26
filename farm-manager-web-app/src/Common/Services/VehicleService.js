@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, getDocs, orderBy, query, updateDoc, where } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, getDocs, limit, orderBy, query, startAfter, updateDoc, where } from 'firebase/firestore'
 import { makeAutoObservable } from 'mobx'
 import ToastStore from '../../Stores/ToastStore'
 import VehicleStore from '../../Stores/VehicleStore'
@@ -13,7 +13,11 @@ class VehicleService {
 
     getVehicles = async () => {
         try {
-            const ref = query(collection(db, "Vehicles")) 
+            const user = await AuthService.currentUser.uid
+            const ref = query(collection(db, "Vehicles"), 
+            where("User", "==", user), 
+            limit(5), 
+            orderBy("Name")) 
             return getDocs(ref)
         } catch (e) {
             ToastStore.notificationType({
@@ -23,6 +27,15 @@ class VehicleService {
             })
             console.error(e)
         }
+    }
+
+    nextItems = async (lastData) => {
+        const user = await AuthService.currentUser.uid
+        const ref = query(collection(db, "Vehicles"), 
+        where("User", "==", user),
+        orderBy("Name"), 
+        startAfter(lastData), limit(5))
+        return getDocs(ref)   
     }
 
     newVehicle = async (payload) => {

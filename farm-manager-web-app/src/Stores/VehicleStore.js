@@ -1,5 +1,4 @@
 import { runInAction, makeAutoObservable } from 'mobx'
-import AuthService from '../Common/Services/AuthService'
 import VehicleService from '../Common/Services/VehicleService'
 
 class VehicleStore {
@@ -19,6 +18,9 @@ class VehicleStore {
         'By type descending','By quantity ascending','By quantity descending',
         'By cost ascending','By cost descending'
     ]
+
+    lastVisible
+    itemsLenght = 6
 
     constructor() {
         makeAutoObservable(this)
@@ -43,9 +45,9 @@ class VehicleStore {
     }
 
     pushVehicles = async (documentSnapshot) => {
-        const filtered = await documentSnapshot.docs.filter(doc => doc.data().User === AuthService.currentUser.uid)
+        const data = await documentSnapshot.docs
         runInAction(() => {
-            this.Vehicles = filtered.map(doc => {
+            this.Vehicles = data.map(doc => {
                 return {
                     docId: doc.id,
                     name: doc.data().Name,
@@ -55,18 +57,40 @@ class VehicleStore {
                     descr: doc.data().Description
                 }
             }) 
-            this.chartLabels = filtered.map(doc => {
+            this.chartLabels = data.map(doc => {
                 return doc.data().Name
             })
-            this.chartCost = filtered.map(doc => {
+            this.chartCost = data.map(doc => {
                 return doc.data().Cost
             })
+        })
+    }
+
+    nextItems = async () => {
+        const documentSnapshot = await VehicleService.nextItems(this.lastVisible)
+        runInAction(() => {
+            const data = documentSnapshot.docs
+            data.map(doc => {
+                return this.Vehicles.push(
+                    {
+                        docId: doc.id,
+                        name: doc.data().Name,
+                        type: doc.data().Type,
+                        quantity: doc.data().Quantity,
+                        cost: doc.data().Cost,
+                        descr: doc.data().Description
+                    }   
+                ) 
+            })
+            this.lastVisible = data[data.length - 1]
+            this.itemsLenght = documentSnapshot.docs.length
         })
     }
 
     getVehicles = async () => {
         const documentSnapshot = await VehicleService.getVehicles()
         runInAction(() => {
+            this.itemsLenght = 5
             this.pushVehicles(documentSnapshot)
         })
     }
@@ -78,7 +102,7 @@ class VehicleStore {
         })
     }
 
-    getSortedVehicles = async () => {
+    getSortedItems = async () => {
         const documentSnapshot = await VehicleService.vehicleSorter() 
         runInAction(() => {
             this.pushVehicles(documentSnapshot)

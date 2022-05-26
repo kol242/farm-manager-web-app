@@ -1,6 +1,6 @@
 import { runInAction, makeAutoObservable } from 'mobx'
-import AuthService from '../Common/Services/AuthService'
 import CropService from '../Common/Services/CropService'
+import FilterService from '../Common/Services/FilterService'
 
 class CropsStore {
     crops = []
@@ -13,6 +13,9 @@ class CropsStore {
     chartLabels = []
     chartProfit = []
     chartCost = []
+
+    lastVisible
+    itemsLenght = 5
 
     filterArray = ['Quantity', 'Name', 'Cost', 'Product', 'Type', 'Profit', 'Harvested', 'State']
     sortArray = [
@@ -45,9 +48,9 @@ class CropsStore {
     }
 
     pushCrops = async (documentSnapshot) => {
-        const filtered = await documentSnapshot.docs.filter(doc => doc.data().User === AuthService.currentUser.uid)
+        const data = await documentSnapshot.docs
         runInAction(() => {
-            this.crops = filtered.map(doc => {
+            this.crops = data.map(doc => {
                 return {
                     docId: doc.id,
                     name: doc.data().Name,
@@ -61,33 +64,86 @@ class CropsStore {
                     unit: doc.data().Unit
                 }
             }) 
-            this.chartLabels = filtered.map(doc => {
+            this.lastVisible = data[data.length - 1]
+            this.chartLabels = data.map(doc => {
                 return doc.data().Name
             })
-            this.chartProfit = filtered.map(doc => {
+            this.chartProfit = data.map(doc => {
                 return doc.data().Profit
             })
-            this.chartCost = filtered.map(doc => {
+            this.chartCost = data.map(doc => {
                 return doc.data().Cost
             })
+        })
+    }
+
+    nextItems = async () => {
+        const documentSnapshot = await CropService.nextItems(this.lastVisible)
+        runInAction(() => {
+            const data = documentSnapshot.docs
+            data.map(doc => {
+                return this.crops.push(
+                    {
+                        docId: doc.id,
+                        name: doc.data().Name,
+                        type: doc.data().Type,
+                        quantity: doc.data().Quantity,
+                        cost: doc.data().Cost,
+                        descr: doc.data().Description,
+                        state: doc.data().State,
+                        harvested: doc.data().Harvested,
+                        profit: doc.data().Profit,
+                        unit: doc.data().Unit
+                    }   
+                ) 
+            })
+            this.lastVisible = data[data.length - 1]
+            this.itemsLenght = documentSnapshot.docs.length
         })
     }
 
     getCrops = async () => {
         const documentSnapshot = await CropService.getCrops()
         runInAction(() => {
+            this.itemsLenght = 5
             this.pushCrops(documentSnapshot)
         })
     }
 
     getFilteredCrops = async () => {
-        const documentSnapshot = await CropService.cropsFilter()
+        const documentSnapshot = await CropService.filterGet(FilterService.filterObj)
         runInAction(() => {
             this.pushCrops(documentSnapshot)
         })
     }
 
-    getSortedCrops = async () => {
+    prevPage = async () => {
+        const documentSnapshot = await ( 
+            this.filterCheck ? CropService.filterPrevPage(FilterService.filterObj, this.firstVisible) 
+            : CropService.prevPage(this.firstVisible, FilterService.sortObj))
+        runInAction(() => {
+            this.prevLength = documentSnapshot.docs.length
+            if(this.nextLength < 7) {
+                this.nextLength = 7
+            }
+            this.pushCrops(documentSnapshot)
+        })
+    }
+
+    nextPage = async () => {
+        const documentSnapshot = await ( 
+            this.filterCheck ? CropService.filterNextPage(FilterService.filterObj, this.lastVisible) 
+            : CropService.nextPage(this.lastVisible, FilterService.sortObj))
+        runInAction(() => {
+            this.nextLength = documentSnapshot.docs.length
+            if(this.prevLength < 7) {
+                this.prevLength = 7
+            }
+            this.pushCrops(documentSnapshot)
+        })
+    }
+
+    getSortedItems = async () => {
         const documentSnapshot = await CropService.cropSorter() 
         runInAction(() => {
             this.pushCrops(documentSnapshot)
