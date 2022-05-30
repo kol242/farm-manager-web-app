@@ -64,6 +64,14 @@
                     display: flex;
                     justify-content: center;
                     gap: 30px;
+                    label {
+                        color: rgb(139, 139, 139);
+                        font-size: 12px;
+                    }
+                    input {
+                        margin-top: 2px;
+                        margin-bottom: 6px;
+                    }
                 }
             }
         }

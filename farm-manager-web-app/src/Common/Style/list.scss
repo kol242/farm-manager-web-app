@@ -28,40 +28,31 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    .icon {
-        color: black;
+    .icon-delete {
+        color: $red;
         vertical-align: middle;
         height: 20px;
         width: 20px;
     }
-    #btn-delete {
-        width: 60px;
-        background-color: $red;
-        color: $dark;
-        padding: 8px;
-        border-style: none;
-        font-family: $app-font;
-        border-radius: 5px;
-        transition: all 0.3s ease;
-        &:hover {
-            transition: all 0.3s ease;
-            opacity: 0.8;
-            cursor: pointer;
-        }
+    .icon-edit {
+        color: $green;
+        vertical-align: middle;
+        height: 20px;
+        width: 20px;
     }
-    #btn-update {
-        width: 60px;
-        background-color: $blue;
-        color: white;
-        padding: 8px;
+    .icon-info {
+        color: $blue;
+        vertical-align: middle;
+        height: 20px;
+        width: 20px;
+    }
+    #btn-icon {
+        background-color: transparent;
         border-style: none;
         font-family: $app-font;
-        border-radius: 5px;
-        transition: all 0.3s ease;
         &:hover {
-            transition: all 0.3s ease;
-            opacity: 0.8;
             cursor: pointer;
+            transform: scale(1.2);
         }
     }
 }

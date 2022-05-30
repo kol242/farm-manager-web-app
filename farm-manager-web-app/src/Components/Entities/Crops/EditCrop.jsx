@@ -3,7 +3,7 @@ import React from 'react'
 import '../../../Common/Style/modal.scss'
 import CropsStore from '../../../Stores/CropsStore'
 
-const CropModal = observer(() => {
+const EditCrop = observer(() => {
     async function handleSubmit(e) {
         e.preventDefault()
         const payload = {
@@ -67,4 +67,4 @@ const CropModal = observer(() => {
   )
 })
 
-export default CropModal
+export default EditCrop

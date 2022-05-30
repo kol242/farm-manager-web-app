@@ -2,10 +2,10 @@ import { observer } from 'mobx-react'
 import React from 'react'
 import AuthService from '../Common/Services/AuthService'
 import { MdDeleteForever } from 'react-icons/md'
-import { AiFillEdit } from 'react-icons/ai'
+import { AiFillEdit, AiOutlineInfoCircle } from 'react-icons/ai'
 import '../Common/Style/list.scss'
 
-const ItemList = observer(({items, deleteCrop, editCrop}) => {
+const ItemList = observer(({ items, deleteItem, editItem, info }) => {
   return (
     <div>
         { items.map((item) => 
@@ -32,8 +32,9 @@ const ItemList = observer(({items, deleteCrop, editCrop}) => {
                     {item.descr}
                   </p>
                   <div className="btn-wrapper">
-                    <button id="btn-delete" onClick={() => deleteCrop(item.docId)}><MdDeleteForever className="icon"/></button>
-                    <button id="btn-update" onClick={() => editCrop(item)}><AiFillEdit className="icon"/></button>  
+                    <button id="btn-icon" onClick={() => deleteItem(item.docId)}><MdDeleteForever className="icon-delete"/></button>
+                    <button id="btn-icon" onClick={() => editItem(item)}><AiFillEdit className="icon-edit"/></button>  
+                    <button id="btn-icon" onClick={() => info(item)}><AiOutlineInfoCircle className="icon-info"/></button>  
                   </div>
                 </li>
             </ul>

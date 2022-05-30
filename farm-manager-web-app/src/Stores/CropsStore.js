@@ -6,6 +6,7 @@ class CropsStore {
     crops = []
     crop = {}
     modal = false
+    InfoModal = false
     filter = ""
     filterCheck = false
     addingCheck = false
@@ -17,14 +18,6 @@ class CropsStore {
     lastVisible
     itemsLenght = 5
 
-    filterArray = ['Quantity', 'Name', 'Cost', 'Product', 'Type', 'Profit', 'Harvested', 'State']
-    sortArray = [
-        'By name ascending','By name descending','By type ascending',
-        'By type descending','By quantity ascending','By quantity descending',
-        'By cost ascending','By cost descending','By profit ascending',
-        'By profit descending'
-    ]
-
     constructor() {
         makeAutoObservable(this)
     }
@@ -34,9 +27,14 @@ class CropsStore {
         this.modal ? this.modal = false : this.modal = true
     }
 
+    InfoModalHandler = (data) => {
+        this.crop = data
+        this.InfoModal ? this.InfoModal = false : this.InfoModal = true
+    }
+
     filterType = (type) => {
         this.filter = type
-        CropService.filterField(type)
+        FilterService.filterField(type)
     }
 
     filterChecker = () => {
@@ -113,32 +111,6 @@ class CropsStore {
     getFilteredCrops = async () => {
         const documentSnapshot = await CropService.filterGet(FilterService.filterObj)
         runInAction(() => {
-            this.pushCrops(documentSnapshot)
-        })
-    }
-
-    prevPage = async () => {
-        const documentSnapshot = await ( 
-            this.filterCheck ? CropService.filterPrevPage(FilterService.filterObj, this.firstVisible) 
-            : CropService.prevPage(this.firstVisible, FilterService.sortObj))
-        runInAction(() => {
-            this.prevLength = documentSnapshot.docs.length
-            if(this.nextLength < 7) {
-                this.nextLength = 7
-            }
-            this.pushCrops(documentSnapshot)
-        })
-    }
-
-    nextPage = async () => {
-        const documentSnapshot = await ( 
-            this.filterCheck ? CropService.filterNextPage(FilterService.filterObj, this.lastVisible) 
-            : CropService.nextPage(this.lastVisible, FilterService.sortObj))
-        runInAction(() => {
-            this.nextLength = documentSnapshot.docs.length
-            if(this.prevLength < 7) {
-                this.prevLength = 7
-            }
             this.pushCrops(documentSnapshot)
         })
     }

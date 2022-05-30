@@ -1,23 +1,18 @@
 import { runInAction, makeAutoObservable } from 'mobx'
+import FilterService from '../Common/Services/FilterService'
 import VehicleService from '../Common/Services/VehicleService'
 
 class VehicleStore {
     Vehicles = []
     Vehicle = {}
     modal = false
+    InfoModal = false
     filter = ""
     filterCheck = false
     addingCheck = false
 
     chartLabels = []
     chartCost = []
-
-    filterArray = ['Quantity', 'Name', 'Cost', 'Type', 'Profit']
-    sortArray = [
-        'By name ascending','By name descending','By type ascending',
-        'By type descending','By quantity ascending','By quantity descending',
-        'By cost ascending','By cost descending'
-    ]
 
     lastVisible
     itemsLenght = 6
@@ -35,9 +30,14 @@ class VehicleStore {
         this.modal ? this.modal = false : this.modal = true
     }
 
+    InfoModalHandler = (data) => {
+        this.Vehicle = data
+        this.InfoModal ? this.InfoModal = false : this.InfoModal = true
+    }
+
     filterType = (type) => {
         this.filter = type
-        VehicleService.filterField(type)
+        FilterService.filterField(type)
     }
 
     filterChecker = () => {
@@ -57,6 +57,7 @@ class VehicleStore {
                     descr: doc.data().Description
                 }
             }) 
+            this.lastVisible = data[data.length - 1]
             this.chartLabels = data.map(doc => {
                 return doc.data().Name
             })

@@ -3,7 +3,7 @@ import React from 'react'
 import '../../../Common/Style/modal.scss'
 import Input from '../../Input'
 
-const VehicleForm = observer(({ form }) => {
+const NewVehicle = observer(({ form }) => {
   return (
     <>
         <form className="modal-form" onSubmit={form.onSubmit}>
@@ -24,4 +24,4 @@ const VehicleForm = observer(({ form }) => {
   )
 })
 
-export default VehicleForm
+export default NewVehicle

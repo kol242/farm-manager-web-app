@@ -3,7 +3,7 @@ import React from 'react'
 import '../../../Common/Style/modal.scss'
 import AnimalStore from '../../../Stores/AnimalStore'
 
-const AnimalModal = observer(() => {
+const EditAnimal = observer(() => {
     async function handleSubmit(e) {
         e.preventDefault()
         const payload = {
@@ -55,4 +55,4 @@ const AnimalModal = observer(() => {
   )
 })
 
-export default AnimalModal
+export default EditAnimal

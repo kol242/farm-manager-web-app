@@ -6,6 +6,7 @@ class AnimalStore {
     Animals = []
     Animal = {}
     modal = false
+    InfoModal = false
     filter = ""
     filterCheck = false
     addingCheck = false
@@ -16,14 +17,6 @@ class AnimalStore {
 
     lastVisible
     itemsLenght = 5
-
-    filterArray = ['Quantity', 'Name', 'Cost', 'Product', 'Type']
-    sortArray = [
-        'By name ascending','By name descending','By type ascending',
-        'By type descending','By quantity ascending','By quantity descending',
-        'By cost ascending','By cost descending','By product ascending',
-        'By product descending','By profit ascending','By profit descending'
-    ]
 
     constructor() {
         makeAutoObservable(this)
@@ -38,9 +31,14 @@ class AnimalStore {
         this.modal ? this.modal = false : this.modal = true
     }
 
+    InfoModalHandler = (data) => {
+        this.Animal = data
+        this.InfoModal ? this.InfoModal = false : this.InfoModal = true
+    }
+
     filterType = (type) => {
         this.filter = type
-        AnimalService.filterField(type)
+        FilterService.filterField(type)
     }
 
     filterChecker = () => {
@@ -110,33 +108,6 @@ class AnimalStore {
         const documentSnapshot = await AnimalService.filterGet(FilterService.filterObj)
         runInAction(() => {
             this.pushAnimals(documentSnapshot)
-        })
-    }
-
-    prevPage = async () => {
-        const documentSnapshot = await ( 
-            this.filterCheck ? AnimalService.filterPrevPage(FilterService.filterObj, this.firstVisible) 
-            : AnimalService.prevPage(this.firstVisible, FilterService.sortObj))
-        runInAction(() => {
-            this.prevLength = documentSnapshot.docs.length
-            if(this.nextLength < 7) {
-                this.nextLength = 7
-            }
-            this.pushAnimals(documentSnapshot)
-        })
-    }
-
-    nextPage = async () => {
-        const documentSnapshot = await ( 
-            this.filterCheck ? AnimalService.filterNextPage(FilterService.filterObj, this.lastVisible) 
-            : AnimalService.nextPage(this.lastVisible, FilterService.sortObj))
-        runInAction(() => {
-            this.nextLength = documentSnapshot.docs.length
-            if(this.prevLength < 7) {
-                this.prevLength = 7
-            }
-            this.pushAnimals(documentSnapshot)
-            console.log(this.Animals)
         })
     }
 

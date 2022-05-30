@@ -3,7 +3,7 @@ import React from 'react'
 import '../../../Common/Style/modal.scss'
 import VehicleStore from '../../../Stores/VehicleStore'
 
-const VehicleModal = observer(() => {
+const EditVehicle = observer(() => {
     async function handleSubmit(e) {
         e.preventDefault()
         const payload = {
@@ -49,4 +49,4 @@ const VehicleModal = observer(() => {
   )
 })
 
-export default VehicleModal
+export default EditVehicle

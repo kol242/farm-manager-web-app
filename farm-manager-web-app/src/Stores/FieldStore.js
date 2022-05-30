@@ -1,10 +1,12 @@
 import { runInAction, makeAutoObservable } from 'mobx'
 import FieldService from '../Common/Services/FieldService'
+import FilterService from '../Common/Services/FilterService'
 
 class FieldStore {
     Fields = []
     Field = {}
     modal = false
+    InfoModal = false
     filter = ""
     filterCheck = false
     addingCheck = false
@@ -12,16 +14,8 @@ class FieldStore {
     chartLabels = []
     chartSize = []
 
-    filterArray = ['Quantity', 'Name', 'Cost', 'Size', 'Type', 'Profit', 'Crop', 'Treatment']
-    sortArray = [
-        'By name ascending','By name descending','By type ascending',
-        'By type descending','By quantity ascending','By quantity descending',
-        'By cost ascending','By cost descending','By size ascending',
-        'By size descending','By crop ascending','By crop descending'
-    ]
-
     lastVisible
-    itemsLenght = 6
+    itemsLenght = 5
 
     constructor() {
         makeAutoObservable(this)
@@ -36,9 +30,14 @@ class FieldStore {
         this.modal ? this.modal = false : this.modal = true
     }
 
+    InfoModalHandler = (data) => {
+        this.Field = data
+        this.InfoModal ? this.InfoModal = false : this.InfoModal = true
+    }
+
     filterType = (type) => {
         this.filter = type
-        FieldService.filterField(type)
+        FilterService.filterField(type)
     }
 
     filterChecker = () => {

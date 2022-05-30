@@ -11,26 +11,6 @@ class CropService {
         makeAutoObservable(this)
     }
 
-    filterType = (type) => {
-        this.filterName = type
-        this.filterField(type)
-    }
-
-    filterData = (input) => {
-        this.filterObj.data = input
-    } 
-    
-    filterField = (type) => {
-        this.filterObj.field = type
-        if (this.filterObj.field === 'Name' || 'Type' || 'Harvested' || 'State') {
-            this.filterObj.operator = "=="
-        }
-    }
-
-    filterOperator = (operator) => {
-        this.filterObj.operator = operator
-    }
-
     getCrops = async () => {
         try {
             const user = await AuthService.currentUser.uid

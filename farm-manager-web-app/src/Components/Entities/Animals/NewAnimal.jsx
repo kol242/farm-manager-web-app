@@ -1,10 +1,8 @@
 import { observer } from 'mobx-react'
 import React from 'react'
-import Units from '../../../Stores/Units'
 import Input from '../../Input'
-import InputSelect from '../../InputSelect'
 
-const FieldForm = observer(({ form }) => {
+const NewAnimal = observer(({ form }) => {
   return (
     <>
         <form className="modal-form" onSubmit={form.onSubmit}>
@@ -13,21 +11,18 @@ const FieldForm = observer(({ form }) => {
                     <Input field={form.$('name')} />
                     <Input field={form.$('type')} />
                     <Input field={form.$('description')} />
-                    <Input field={form.$('treatment')} />
-                    <Input field={form.$('crop')} />
+                    <Input field={form.$('product')} />
                 </div>
                 <div>
                     <Input field={form.$('quantity')} />
-                    <InputSelect unit={Units.size} field={form.$('sizeUnit')} />
-                    <Input field={form.$('size')} />
                     <Input field={form.$('cost')} />
                     <Input field={form.$('profit')} />
                 </div>    
             </div>
-            <button type="submit" onClick={form.onSubmit}>Add Field</button>
+            <button type="submit" onClick={form.onSubmit}>Add Animal</button>
         </form>
     </>
   )
 })
 
-export default FieldForm
+export default NewAnimal

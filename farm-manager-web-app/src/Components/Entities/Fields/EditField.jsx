@@ -3,7 +3,7 @@ import React from 'react'
 import '../../../Common/Style/modal.scss'
 import FieldStore from '../../../Stores/FieldStore'
 
-const FieldModal = observer(() => {
+const EditField = observer(() => {
     async function handleSubmit(e) {
         e.preventDefault()
         const payload = {
@@ -66,4 +66,4 @@ const FieldModal = observer(() => {
   )
 })
 
-export default FieldModal
+export default EditField

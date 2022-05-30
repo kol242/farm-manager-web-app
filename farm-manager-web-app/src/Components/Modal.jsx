@@ -1,9 +1,9 @@
 import React from 'react'
 import AddAnimalForm from './Entities/Animals/form.class'
-import AnimalForm from '../Components/Entities/Animals/AnimalForm'
-import CropForm from '../Components/Entities/Crops/CropForm'
-import FieldForm from '../Components/Entities/Fields/FieldForm'
-import VehicleForm from '../Components/Entities/Vehicles/VehicleForm'
+import NewAnimal from './Entities/Animals/NewAnimal'
+import NewCrop from '../Components/Entities/Crops/NewCrop'
+import NewField from './Entities/Fields/NewField'
+import NewVehicle from './Entities/Vehicles/NewVehicle'
 import AddCropForm from './Entities/Crops/form.class'
 import AddFieldForm from './Entities/Fields/form.class'
 import AddVehicleForm from './Entities/Vehicles/form.class'
@@ -25,10 +25,10 @@ const Modal = observer(({ item, store }) => {
                 </div>
                 <hr />
                 <div className="modal-body">
-                    { item === 'Animals' ? <AnimalForm form={Animalsform} /> : null }
-                    { item === 'Crops' ? <CropForm form={CropsForm} /> : null }
-                    { item === 'Fields' ? <FieldForm form={FieldsForm} /> : null }
-                    { item === 'Vehicles' ? <VehicleForm form={VehiclesForm} /> : null }
+                    { item === 'Animals' ? <NewAnimal form={Animalsform} /> : null }
+                    { item === 'Crops' ? <NewCrop form={CropsForm} /> : null }
+                    { item === 'Fields' ? <NewField form={FieldsForm} /> : null }
+                    { item === 'Vehicles' ? <NewVehicle form={VehiclesForm} /> : null }
                 </div>
             </div>
         </div>

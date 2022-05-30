@@ -5,7 +5,7 @@ import Units from '../../../Stores/Units'
 import Input from '../../Input'
 import InputSelect from '../../InputSelect'
 
-const CropForm = observer(({ form }) => {
+const NewCrop = observer(({ form }) => {
   return (
     <>
         <form className="modal-form" onSubmit={form.onSubmit}>
@@ -30,4 +30,4 @@ const CropForm = observer(({ form }) => {
   )
 })
 
-export default CropForm
+export default NewCrop
