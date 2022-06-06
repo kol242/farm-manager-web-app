@@ -22,17 +22,17 @@ class VehicleStore {
     }
 
     addingChecker = () => {
-        this.addingCheck ? this.addingCheck = false : this.addingCheck = true
+        this.addingCheck = !this.addingCheck
     }
 
     modalHandler = (data) => {
         this.Vehicle = data
-        this.modal ? this.modal = false : this.modal = true
+        this.modal = !this.modal 
     }
 
     InfoModalHandler = (data) => {
         this.Vehicle = data
-        this.InfoModal ? this.InfoModal = false : this.InfoModal = true
+        this.InfoModal = !this.InfoModal 
     }
 
     filterType = (type) => {
@@ -41,7 +41,7 @@ class VehicleStore {
     }
 
     filterChecker = () => {
-        this.filterCheck ? this.filterCheck = false : this.filterCheck = true
+        this.filterCheck = !this.filterCheck
     }
 
     pushVehicles = async (documentSnapshot) => {

@@ -24,12 +24,12 @@ class CropsStore {
 
     modalHandler = (data) => {
         this.crop = data
-        this.modal ? this.modal = false : this.modal = true
+        this.modal = !this.modal
     }
 
     InfoModalHandler = (data) => {
         this.crop = data
-        this.InfoModal ? this.InfoModal = false : this.InfoModal = true
+        this.InfoModal = !this.InfoModal 
     }
 
     filterType = (type) => {
@@ -38,11 +38,11 @@ class CropsStore {
     }
 
     filterChecker = () => {
-        this.filterCheck ? this.filterCheck = false : this.filterCheck = true
+        this.filterCheck = !this.filterCheck
     }
 
     addingChecker = () => {
-        this.addingCheck ? this.addingCheck = false : this.addingCheck = true
+        this.addingCheck = !this.addingCheck
     }
 
     pushCrops = async (documentSnapshot) => {

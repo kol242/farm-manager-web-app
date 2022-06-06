@@ -22,17 +22,17 @@ class FieldStore {
     }
 
     addingChecker = () => {
-        this.addingCheck ? this.addingCheck = false : this.addingCheck = true
+        this.addingCheck = !this.addingCheck
     }
 
     modalHandler = (data) => {
         this.Field = data
-        this.modal ? this.modal = false : this.modal = true
+        this.modal = !this.modal
     }
 
     InfoModalHandler = (data) => {
         this.Field = data
-        this.InfoModal ? this.InfoModal = false : this.InfoModal = true
+        this.InfoModal = !this.InfoModal
     }
 
     filterType = (type) => {
@@ -41,7 +41,7 @@ class FieldStore {
     }
 
     filterChecker = () => {
-        this.filterCheck ? this.filterCheck = false : this.filterCheck = true
+        this.filterCheck = !this.filterCheck 
     }
 
     pushFields = async (documentSnapshot) => {
